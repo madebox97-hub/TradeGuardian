@@ -1,536 +1,807 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ========================================================= -->
-    <!-- TradeGuardian Coming Soon - Production-Ready Single-File Landing Page -->
-    <!-- TODO: Replace placeholder images in /assets/               -->
-    <!-- TODO: Replace /waitlist with real endpoint (or Mailchimp) -->
-    <!-- TODO: Insert app store links in commented spots            -->
-    <!-- ========================================================= -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TradeGuardian – Coming Soon: Trade Smarter. Trade Safer.</title>
-    <meta name="description" content="TradeGuardian is the upcoming app to reduce emotional trading, prevent overtrading, and build real discipline. Join early access now.">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="TradeGuardian – Coming Soon: Trade Smarter. Trade Safer.">
-    <meta property="og:description" content="The future trading discipline app that guides you to consistent profits. Join the waitlist for early access.">
-    <meta property="og:image" content="https://yourdomain.com/assets/og-image.jpg">
-    <meta property="og:url" content="https://yourdomain.com">
-    <meta property="og:type" content="website">
-
-    <!-- Google Fonts: Inter & Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
-
+    <title>Tools Wonder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        /* Global Styles */
         :root {
-            --primary: #0B4C8C;
-            --accent: #1FA464;
-            --dark: #0F1724;
-            --light: #F8FAFC;
-            --gray-100: #F1F5F9;
-            --gray-200: #E2E8F0;
-            --gray-600: #475569;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
-            --radius: 16px;
-            --transition: all 0.3s ease;
+            --primary-blue: #0A59FF;
+            --secondary-blue: #0052CC;
+            --accent-bg: #EAF1FF;
+            --white: #FFFFFF;
+            --dark-blue: #003580; /* For footer */
+            --text-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
-        *, *::before, *::after { box-sizing: border-box; }
-        body, h1, h2, h3, p, ul { margin: 0; padding: 0; }
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--light);
-            color: var(--dark);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--white);
+            color: var(--text-color);
             line-height: 1.6;
-            font-size: 1rem;
-        }
-        h1, h2, h3 { font-family: 'Poppins', sans-serif; }
-        img { max-width: 100%; display: block; }
-        a { color: inherit; text-decoration: none; }
-        button { font-family: inherit; cursor: pointer; }
-
-        .container {
-            width: min(100% - 2rem, 1280px);
-            margin-inline: auto;
         }
 
-        /* Utility */
-        .text-center { text-align: center; }
-        .btn {
-            display: inline-block;
-            padding: 0.85rem 1.75rem;
-            border-radius: var(--radius);
-            font-weight: 600;
-            text-align: center;
-            transition: var(--transition);
-            border: none;
-        }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        .btn-primary:hover { background: #093c70; transform: translateY(-2px); }
-        .btn-accent {
-            background: var(--accent);
-            color: white;
-        }
-        .btn-accent:hover { background: #188a54; transform: translateY(-2px); }
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        .btn-outline:hover { background: var(--primary); color: white; }
-
-        .section { padding: 5rem 0; }
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--gray-600);
-            max-width: 680px;
-            margin: 0 auto 3rem;
-        }
-
-        /* Animations */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .animate-fade { animation: fadeIn 1s ease-out; }
-        .animate-slide { animation: slideUp 0.8s ease-out; }
-
-        /* Grid Helpers */
-        .grid {
-            display: grid;
-            gap: 2rem;
-        }
-        @media (min-width: 768px) {
-            .grid-3 { grid-template-columns: repeat(3, 1fr); }
-            .grid-4 { grid-template-columns: repeat(4, 1fr); }
-        }
-        @media (max-width: 767px) {
-            .grid-3, .grid-4 { grid-template-columns: 1fr; }
-        }
-
-        /* HEADER */
-        header {
-            background: white;
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
-        .nav-links {
-            display: none;
-            gap: 2rem;
-        }
-        @media (min-width: 992px) {
-            .nav-links { display: flex; }
-        }
-
-        /* HERO */
-        .hero {
-            padding: 6rem 0 4rem;
-            text-align: center;
-            background: linear-gradient(to bottom, white 0%, var(--light) 100%);
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-        .hero p {
-            font-size: 1.4rem;
-            color: var(--gray-600);
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-        }
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 4rem;
-        }
-        .hero-mockup img {
-            max-width: 400px;
-            margin: 0 auto;
-            border-radius: 24px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* DESCRIPTION */
-        .description { background: white; }
-
-        /* FEATURES */
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-md);
-            text-align: center;
-        }
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin: 1.5rem 0 1rem;
-            color: var(--dark);
-        }
-
-        /* HOW IT WORKS */
-        .steps {
-            counter-reset: step;
-        }
-        .step {
-            position: relative;
-            padding-left: 3rem;
-        }
-        .step::before {
-            content: counter(step);
-            counter-increment: step;
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: var(--primary);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Typography */
+        h1, h2, h3 {
+            margin: 0;
             font-weight: bold;
         }
 
-        /* SIGNUP */
-        .signup {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-        }
-        .signup form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .signup input {
-            padding: 1rem;
-            border-radius: var(--radius);
-            border: none;
-            font-size: 1rem;
+        h1 {
+            font-size: 3rem;
         }
 
-        /* GALLERY */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        .gallery img {
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-md);
+        h2 {
+            font-size: 2rem;
         }
 
-        /* FAQ Accordion */
-        .faq-item {
-            border-bottom: 1px solid var(--gray-200);
-            padding: 1.5rem 0;
+        h3 {
+            font-size: 1.2rem;
         }
-        .faq-question {
-            width: 100%;
-            text-align: left;
-            background: none;
+
+        button {
+            background-color: var(--primary-blue);
+            color: var(--white);
             border: none;
-            font-weight: 600;
-            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--secondary-blue);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--accent-bg);
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+        .top-bar p {
+            margin: 0;
+        }
+
+        .top-bar i {
+            margin-right: 5px;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 40px; /* Adjust based on top-bar height */
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .faq-question::after {
-            content: "↓";
-            transition: transform 0.3s;
-        }
-        .faq-question.active::after { transform: rotate(180deg); }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-            padding-top: 0.5rem;
-            color: var(--gray-600);
+            padding: 15px 5%;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            z-index: 1000;
         }
 
-        /* FOOTER */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 4rem 0 2rem;
-        }
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            margin-bottom: 3rem;
-        }
-        .footer-links a {
-            padding: 0.5rem 1rem;
-            opacity: 0.8;
-        }
-        .footer-links a:hover { opacity: 1; color: var(--accent); }
-        .social-icons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-        .social-icons a {
+        .logo {
             font-size: 1.5rem;
-            opacity: 0.8;
+            font-weight: bold;
+            color: var(--primary-blue);
         }
-        .social-icons a:hover { opacity: 1; color: var(--accent); }
 
-        @media (min-width: 640px) {
-            .hero h1 { font-size: 4.5rem; }
-            .signup form { flex-direction: row; }
-            .signup input { flex: 1; }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 150px 5% 100px; /* Adjust for fixed navbar */
+            background: linear-gradient(to bottom, var(--accent-bg), var(--white));
+        }
+
+        .hero h1 {
+            color: var(--primary-blue);
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-graphics {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .hero-graphics i {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-graphics i:hover {
+            transform: scale(1.1);
+        }
+
+        /* Search Section */
+        .search-section {
+            text-align: center;
+            padding: 50px 5%;
+        }
+
+        .search-section input {
+            width: 80%;
+            max-width: 600px;
+            padding: 15px;
+            border: 1px solid var(--accent-bg);
+            border-radius: 5px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            font-size: 1rem;
+        }
+
+        /* Tools Sections */
+        .tools-section {
+            padding: 50px 5%;
+        }
+
+        .tools-section h2 {
+            text-align: center;
+            color: var(--primary-blue);
+        }
+
+        .tools-section p {
+            text-align: center;
+            margin: 10px 0 40px;
+            font-size: 1.2rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-card i {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .tool-card h3 {
+            margin: 10px 0;
+        }
+
+        .tool-card p {
+            font-size: 0.9rem;
+            margin: 10px 0 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 5%;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        footer li {
+            cursor: pointer;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 10px 5%;
+            }
+
+            .nav-links {
+                margin-top: 10px;
+            }
+
+            .nav-links li {
+                margin: 0 10px;
+            }
+
+            .hero {
+                padding: 120px 5% 80px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h2 {
+                font-size: 1.2rem;
+            }
+
+            .hero-graphics {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .search-section input {
+                width: 90%;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Top Bar with Contact Info -->
+    <div class="top-bar">
+        <p><i class="fas fa-envelope"></i> madebox97@gmail.com | <i class="fas fa-phone"></i> 6297370490</p>
+    </div>
 
-    <!-- HEADER -->
-    <header>
-        <div class="container">
-            <nav aria-label="Main navigation">
-                <div class="logo">TradeGuardian</div>
-                <div class="nav-links">
-                    <a href="#features">Features</a>
-                    <a href="#how">How It Works</a>
-                    <a href="#signup">Join Waitlist</a>
-                    <a href="#faq">FAQ</a>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <!-- Fixed Navbar -->
+    <nav class="navbar">
+        <div class="logo">Maltus</div>
+        <ul class="nav-links">
+            <li>Home</li>
+            <li>Tools</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
 
-    <!-- HERO -->
-    <section class="hero animate-fade">
-        <div class="container">
-            <h1>Trade Smarter. Trade Safer.</h1>
-            <p>TradeGuardian is the upcoming app designed to reduce emotional trading, prevent overtrading, and help you build real discipline.</p>
-            <div class="hero-buttons">
-                <a href="#signup" class="btn btn-primary">Join Early Access</a>
-                <a href="#signup" class="btn btn-outline">Get Notified</a>
-            </div>
-            <div class="hero-mockup animate-slide">
-                <!-- TODO: Replace with real mockup or illustration -->
-                <img src="assets/phone-mockup.png" alt="TradeGuardian app mockup" loading="lazy"
-                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjgwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIiByeD0iNDAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIzMCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk1vY2t1cDwvdGV4dD48L3N2Zz4='">
-            </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>uink toll</h1>
+        <h2>Convert, calculate, compress, and simplify your everyday tasks — fast and free.</h2>
+        <button>Explore Tools</button>
+        <div class="hero-graphics">
+            <i class="fas fa-image"></i>
+            <i class="fas fa-font"></i>
+            <i class="fas fa-code"></i>
+            <i class="fas fa-video"></i>
         </div>
     </section>
 
-    <!-- SHORT DESCRIPTION -->
-    <section class="section description animate-slide">
-        <div class="container text-center">
-            <h2 class="section-title">Your Discipline Partner for Consistent Trading</h2>
-            <p>TradeGuardian will guide you with pre-trade checklists, position sizing tools, daily loss limits, and emotional-trade blockers — so you grow steadily, not emotionally.</p>
-        </div>
+    <!-- Search Bar Section -->
+    <section class="search-section">
+        <input type="text" placeholder="Search a tool…">
     </section>
 
-    <!-- FEATURE HIGHLIGHTS -->
-    <section id="features" class="section" style="background: var(--gray-100);">
-        <div class="container text-center">
-            <h2 class="section-title">Upcoming Features</h2>
-            <div class="grid grid-4">
-                <div class="feature-card animate-slide">
-                    <h3>Accurate Position Sizing</h3>
-                    <p>Calculates position sizes using your capital and risk percentage.</p>
-                </div>
-                <div class="feature-card animate-slide">
-                    <h3>Overtrading Protection</h3>
-                    <p>Detects rapid trades, blocks revenge entries, and adds cooldowns.</p>
-                </div>
-                <div class="feature-card animate-slide">
-                    <h3>Daily Rules & Limits</h3>
-                    <p>Helps you set and follow daily loss limits and trading rules.</p>
-                </div>
-                <div class="feature-card animate-slide">
-                    <h3>Journal & Analytics</h3>
-                    <p>Track performance, emotions, and discipline progress.</p>
-                </div>
+    <!-- Image Tools Section -->
+    <section class="tools-section">
+        <h2>Image Tools</h2>
+        <p>Fast, high-quality image utilities.</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fas fa-exchange-alt"></i>
+                <h3>Image Converter</h3>
+                <p>Convert images between various formats easily.</p>
+                <button>Use Tool</button>
             </div>
-        </div>
-    </section>
-
-    <!-- HOW IT WILL WORK -->
-    <section id="how" class="section">
-        <div class="container text-center">
-            <h2 class="section-title">How It Will Work</h2>
-            <div class="grid grid-3 steps">
-                <div class="step animate-slide">
-                    <h3>Set Your Rules</h3>
-                    <p>Customize your daily limits, risk parameters, and trading guidelines.</p>
-                </div>
-                <div class="step animate-slide">
-                    <h3>Get Real-Time Guidance</h3>
-                    <p>Receive alerts and blocks to prevent emotional decisions during trading.</p>
-                </div>
-                <div class="step animate-slide">
-                    <h3>Review Your Behavior & Improve</h3>
-                    <p>Analyze past trades with journals and analytics to build better habits.</p>
-                </div>
+            <div class="tool-card">
+                <i class="fas fa-compress"></i>
+                <h3>Image Compressor</h3>
+                <p>Reduce image file size without losing quality.</p>
+                <button>Use Tool</button>
             </div>
-        </div>
-    </section>
-
-    <!-- MOCKUP GALLERY (Optional but included) -->
-    <section class="section" style="background: var(--gray-100);">
-        <div class="container text-center">
-            <h2 class="section-title">Sneak Peek</h2>
-            <div class="gallery">
-                <figure class="animate-slide">
-                    <img src="assets/screenshot-1.png" alt="Trade Entry Screen" loading="lazy">
-                    <figcaption>Trade Entry Screen</figcaption>
-                </figure>
-                <figure class="animate-slide">
-                    <img src="assets/screenshot-2.png" alt="Position Sizing Tool" loading="lazy">
-                    <figcaption>Position Sizing Tool</figcaption>
-                </figure>
-                <figure class="animate-slide">
-                    <img src="assets/screenshot-3.png" alt="Discipline Analytics" loading="lazy">
-                    <figcaption>Discipline Analytics</figcaption>
-                </figure>
+            <div class="tool-card">
+                <i class="fas fa-expand-arrows-alt"></i>
+                <h3>Image Resizer</h3>
+                <p>Resize images to custom dimensions quickly.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-crop"></i>
+                <h3>Image Cropper</h3>
+                <p>Crop images to focus on specific areas.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-text-height"></i>
+                <h3>Image to Text (OCR)</h3>
+                <p>Extract text from images using OCR technology.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-sync"></i>
+                <h3>Image Rotator/Flipper</h3>
+                <p>Rotate or flip images effortlessly.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-eraser"></i>
+                <h3>Image Background Remover</h3>
+                <p>Remove backgrounds from images automatically.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-palette"></i>
+                <h3>Image Color Changer</h3>
+                <p>Adjust colors in images with ease.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-magic"></i>
+                <h3>Image Enhancer (AI)</h3>
+                <p>Enhance image quality using AI.</p>
+                <button>Use Tool</button>
             </div>
         </div>
     </section>
 
-    <!-- EMAIL SIGNUP SECTION -->
-    <section id="signup" class="section signup animate-fade">
-        <div class="container">
-            <h2 class="section-title" style="color:white;">Be the First to Get Access</h2>
-            <p class="section-subtitle" style="color:var(--gray-100);">Enter your email to join the waitlist and get early updates.</p>
-            <form id="waitlist-form">
-                <input type="text" placeholder="Your Name" required aria-label="Name">
-                <input type="email" placeholder="Your Email" required aria-label="Email">
-                <button type="submit" class="btn btn-accent">Join Waitlist Now</button>
-            </form>
-            <p id="form-message" style="margin-top:1rem; color:var(--accent);"></p>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq" class="section">
-        <div class="container" style="max-width:800px;">
-            <h2 class="section-title text-center">Frequently Asked Questions</h2>
-            <div class="faq">
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">When will TradeGuardian launch?<span></span></button>
-                    <div class="faq-answer">You will receive early access updates via email.</div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Is it free?<span></span></button>
-                    <div class="faq-answer">Basic version will be free. Premium features will be optional.</div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Will it support my broker?<span></span></button>
-                    <div class="faq-answer">Broker integrations will be announced.</div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">Will TradeGuardian manage my money?<span></span></button>
-                    <div class="faq-answer">No. It only guides discipline — not financial advice.</div>
-                </div>
+    <!-- Document Tools Section -->
+    <section class="tools-section">
+        <h2>Document Tools</h2>
+        <p>Smart document handling made simple.</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fas fa-file-word"></i>
+                <h3>PDF to Word / Word to PDF</h3>
+                <p>Convert between PDF and Word formats.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-compress"></i>
+                <h3>PDF Compressor</h3>
+                <p>Compress PDF files to reduce size.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-object-group"></i>
+                <h3>PDF Merger & Splitter</h3>
+                <p>Merge or split PDF documents.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-exchange-alt"></i>
+                <h3>Document Converter</h3>
+                <p>Convert various document types.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-lock"></i>
+                <h3>PDF Lock / Unlock</h3>
+                <p>Secure or unlock PDF files.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-signature"></i>
+                <h3>eSign PDF</h3>
+                <p>Add electronic signatures to PDFs.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-sort"></i>
+                <h3>PDF Page Reorder</h3>
+                <p>Reorder pages in PDF documents.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-file-pdf"></i>
+                <h3>Text to PDF Generator</h3>
+                <p>Convert text to PDF format.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-file-excel"></i>
+                <h3>Excel to PDF Converter</h3>
+                <p>Convert Excel files to PDF.</p>
+                <button>Use Tool</button>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- Calculator Tools Section -->
+    <section class="tools-section">
+        <h2>Calculator Tools</h2>
+        <p>Accurate calculators for instant results.</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fas fa-calculator"></i>
+                <h3>Scientific Calculator</h3>
+                <p>Perform advanced calculations.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-birthday-cake"></i>
+                <h3>Age Calculator</h3>
+                <p>Calculate age from birthdate.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-weight"></i>
+                <h3>BMI Calculator</h3>
+                <p>Calculate body mass index.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-money-bill"></i>
+                <h3>Loan EMI Calculator</h3>
+                <p>Compute loan EMIs.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-percentage"></i>
+                <h3>GST Calculator</h3>
+                <p>Calculate GST amounts.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Currency Converter</h3>
+                <p>Convert between currencies.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Date Calculator</h3>
+                <p>Calculate dates and differences.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-percentage"></i>
+                <h3>Percentage Calculator</h3>
+                <p>Compute percentages easily.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-tags"></i>
+                <h3>Discount Calculator</h3>
+                <p>Calculate discounts on prices.</p>
+                <button>Use Tool</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Text Tools Section -->
+    <section class="tools-section">
+        <h2>Text Tools</h2>
+        <p>Text utilities for writers and creators.</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fas fa-text-width"></i>
+                <h3>Text Case Converter</h3>
+                <p>Change text case (upper, lower, etc.).</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-count"></i> <!-- Placeholder, as FA has no direct count -->
+                <h3>Word & Character Counter</h3>
+                <p>Count words and characters.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-minus-circle"></i>
+                <h3>Remove Duplicate Lines</h3>
+                <p>Remove duplicates from text lines.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-sort-alpha-down"></i>
+                <h3>Text Sorter</h3>
+                <p>Sort text lines alphabetically.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-undo"></i>
+                <h3>Text Reverser</h3>
+                <p>Reverse text strings.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-lock"></i>
+                <h3>Text Encryptor/Decryptor</h3>
+                <p>Encrypt or decrypt text.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-paragraph"></i>
+                <h3>Lorem Ipsum Generator</h3>
+                <p>Generate placeholder text.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-align-left"></i>
+                <h3>Paragraph Formatter</h3>
+                <p>Format paragraphs neatly.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-hashtag"></i>
+                <h3>Hashtag Generator</h3>
+                <p>Generate relevant hashtags.</p>
+                <button>Use Tool</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Web / Developer Tools Section -->
+    <section class="tools-section">
+        <h2>Web / Developer Tools</h2>
+        <p>Essential tools for developers & designers.</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fas fa-compress-arrows-alt"></i>
+                <h3>HTML/CSS/JS Minifier</h3>
+                <p>Minify code for optimization.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-code"></i>
+                <h3>JSON Formatter & Validator</h3>
+                <p>Format and validate JSON.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-database"></i>
+                <h3>Base64 Encoder/Decoder</h3>
+                <p>Encode or decode Base64.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-link"></i>
+                <h3>URL Encoder/Decoder</h3>
+                <p>Encode or decode URLs.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-palette"></i>
+                <h3>Color Picker & Converter</h3>
+                <p>Pick and convert colors.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-search"></i>
+                <h3>Regex Tester</h3>
+                <p>Test regular expressions.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-key"></i>
+                <h3>JWT Decoder</h3>
+                <p>Decode JSON Web Tokens.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-globe"></i>
+                <h3>DNS Lookup Tool</h3>
+                <p>Perform DNS lookups.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-tags"></i>
+                <h3>Open Graph Meta Generator</h3>
+                <p>Generate OG meta tags.</p>
+                <button>Use Tool</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Color Tools Section -->
+    <section class="tools-section">
+        <h2>Color Tools</h2>
+        <p>Explore and generate beautiful colors.</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fas fa-eye-dropper"></i>
+                <h3>Color Picker from Image</h3>
+                <p>Pick colors from images.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-exchange-alt"></i>
+                <h3>HEX to RGB Converter</h3>
+                <p>Convert HEX to RGB.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-palette"></i>
+                <h3>Gradient Generator</h3>
+                <p>Create color gradients.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-search"></i>
+                <h3>Contrast Checker</h3>
+                <p>Check color contrast ratios.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-swatchbook"></i>
+                <h3>Palette Generator</h3>
+                <p>Generate color palettes.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-eye"></i>
+                <h3>Color Blindness Simulator</h3>
+                <p>Simulate color blindness.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-temperature-high"></i>
+                <h3>Color Temperature Converter</h3>
+                <p>Convert color temperatures.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-shadow"></i> <!-- Placeholder -->
+                <h3>Shadow Generator</h3>
+                <p>Generate CSS shadows.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-glass-martini"></i> <!-- Placeholder for glassmorphism -->
+                <h3>Glassmorphism Generator</h3>
+                <p>Create glassmorphism effects.</p>
+                <button>Use Tool</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEO & Marketing Tools Section -->
+    <section class="tools-section">
+        <h2>SEO & Marketing Tools</h2>
+        <p>Improve visibility & optimize content.</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fas fa-search"></i>
+                <h3>Keyword Density Checker</h3>
+                <p>Check keyword density in text.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-tags"></i>
+                <h3>Meta Tag Analyzer</h3>
+                <p>Analyze meta tags.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-count"></i> <!-- Placeholder -->
+                <h3>Word Counter</h3>
+                <p>Count words in content.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-heading"></i>
+                <h3>Title Generator</h3>
+                <p>Generate SEO titles.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-link"></i>
+                <h3>URL Preview Generator</h3>
+                <p>Generate URL previews.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-book-open"></i>
+                <h3>Content Readability Test</h3>
+                <p>Test content readability.</p>
+                <button>Use Tool</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Utility Tools Section -->
+    <section class="tools-section">
+        <h2>Utility Tools</h2>
+        <p>Smart tools for everyday tasks.</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fas fa-qrcode"></i>
+                <h3>QR Code Generator & Scanner</h3>
+                <p>Generate and scan QR codes.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-barcode"></i>
+                <h3>Barcode Generator</h3>
+                <p>Generate barcodes.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-random"></i>
+                <h3>UUID Generator</h3>
+                <p>Generate unique UUIDs.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-ruler-combined"></i>
+                <h3>Unit Converter</h3>
+                <p>Convert between units.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-clock"></i>
+                <h3>Time Zone Converter</h3>
+                <p>Convert time zones.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-key"></i>
+                <h3>Random Number/Password Generator</h3>
+                <p>Generate random numbers or passwords.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-clipboard"></i>
+                <h3>Clipboard Manager</h3>
+                <p>Manage clipboard items.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-stopwatch"></i>
+                <h3>Stopwatch & Timer</h3>
+                <p>Use stopwatch or timer.</p>
+                <button>Use Tool</button>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-file-code"></i>
+                <h3>Markdown to HTML Converter</h3>
+                <p>Convert Markdown to HTML.</p>
+                <button>Use Tool</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="social-icons">
-                <!-- TODO: Replace with real social links/icons -->
-                <a href="#" aria-label="Twitter">🐦</a>
-                <a href="#" aria-label="LinkedIn">🔗</a>
-                <a href="#" aria-label="Instagram">📸</a>
-                <a href="#" aria-label="Facebook">📘</a>
-            </div>
-            <div class="footer-links">
-                <a href="#">About</a>
-                <a href="#">Contact</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms</a>
-            </div>
-            <!-- TODO: App Store Links -->
-            <!-- <a href="https://play.google.com/store/apps/details?id=your.app">Android App</a> -->
-            <!-- <a href="https://apps.apple.com/app/your-app/id1234567890">iOS App</a> -->
-            <p style="text-align:center; opacity:0.7; margin-top:3rem;">© 2025 TradeGuardian. All rights reserved.</p>
-        </div>
+        <div class="footer-logo">Maltus</div>
+        <p>Simplifying your digital life.</p>
+        <p>Contact Email: toolswonder1@gmail.com</p>
+        <ul>
+            <li>Privacy Policy</li>
+            <li>Terms of Use</li>
+        </ul>
     </footer>
-
-    <script>
-        // FAQ Accordion
-        document.querySelectorAll('.faq-question').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const expanded = btn.getAttribute('aria-expanded') === 'true';
-                btn.setAttribute('aria-expanded', !expanded);
-                btn.classList.toggle('active');
-                const answer = btn.nextElementSibling;
-                answer.style.maxHeight = expanded ? '0' : answer.scrollHeight + 'px';
-            });
-        });
-
-        // Waitlist Form
-        const form = document.getElementById('waitlist-form');
-        const message = document.getElementById('form-message');
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = form.querySelector('input[type="text"]').value.trim();
-            const email = form.querySelector('input[type="email"]').value.trim();
-            if (!name || !email || !/^\S+@\S+\.\S+$/.test(email)) {
-                message.textContent = 'Please enter a valid name and email.';
-                message.style.color = '#ef4444';
-                return;
-            }
-
-            try {
-                const res = await fetch('/waitlist', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email })
-                });
-                if (res.ok) {
-                    message.textContent = 'Thank you! You’ll be notified when TradeGuardian launches.';
-                    message.style.color = '#10b981';
-                    form.reset();
-                } else {
-                    throw new Error();
-                }
-            } catch (err) {
-                message.textContent = 'Something went wrong. Try again later.';
-                message.style.color = '#ef4444';
-            }
-        });
-    </script>
 </body>
 </html>
