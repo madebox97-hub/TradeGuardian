@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ========================================================= -->
+    <!-- TradeGuardian - Production-Ready Single-File Landing Page -->
+    <!-- TODO: Replace placeholder images in /assets/               -->
+    <!-- TODO: Replace /api/waitlist with real endpoint (or Mailchimp) -->
+    <!-- TODO: Insert real GA4 / Meta Pixel IDs in commented sections -->
+    <!-- ========================================================= -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeGuardian – Protect Your Capital. Trade with Discipline.</title>
+    <meta name="description" content="TradeGuardian blocks impulsive trades, calculates accurate position sizes, and enforces daily loss limits so you trade like a professional.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="TradeGuardian – Protect Your Capital. Trade with Discipline.">
+    <meta property="og:description" content="The trading discipline app that stops emotional decisions and keeps you profitable.">
+    <meta property="og:image" content="https://yourdomain.com/assets/og-image.jpg">
+    <meta property="og:url" content="https://yourdomain.com">
+    <meta property="og:type" content="website">
+
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0B4C8C;
+            --accent: #1FA464;
+            --dark: #0F1724;
+            --light: #F8FAFC;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-600: #475569;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --transition: all 0.25s ease;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        body, h1, h2, h3, p, ul { margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; cursor: pointer; }
+
+        .container {
+            width: min(100% - 2rem, 1280px);
+            margin-inline: auto;
+        }
+
+        /* Utility */
+        .text-center { text-align: center; }
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 1.75rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
+            border: none;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover { background: #093c70; transform: translateY(-2px); }
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-accent:hover { background: #188a54; transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        .section { padding: 4rem 0; }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            max-width: 680px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Grid Helpers */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 767px) {
+            .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        /* HEADER */
+        header {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .nav-links {
+            display: none;
+            gap: 2rem;
+        }
+        @media (min-width: 992px) {
+            .nav-links { display: flex; }
+        }
+
+        /* HERO */
+        .hero {
+            padding: 6rem 0 4rem;
+            text-align: center;
+            background: linear-gradient(to bottom, white 0%, var(--light) 100%);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+        .hero-mockup img {
+            max-width: 340px;
+            margin: 0 auto;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* FEATURES */
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--dark);
+        }
+
+        /* HOW IT WORKS */
+        .steps {
+            counter-reset: step;
+        }
+        .step {
+            position: relative;
+            padding-left: 3rem;
+        }
+        .step::before {
+            content: counter(step);
+            counter-increment: step;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* GALLERY */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .gallery img {
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* TESTIMONIALS */
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+        }
+        .stars { color: #f59e0b; margin-bottom: 1rem; }
+
+        /* PRICING */
+        .pricing-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem;
+            text-align: center;
+        }
+        .pricing-card.pro {
+            border: 3px solid var(--accent);
+            transform: scale(1.05);
+        }
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1.5rem 0;
+        }
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question::after {
+            content: "↓";
+            transition: transform 0.3s;
+        }
+        .faq-question.active::after { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding-top: 0.5rem;
+            color: var(--gray-600);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .footer-links a {
+            display: block;
+            padding: 0.5rem 0;
+            opacity: 0.8;
+        }
+        .footer-links a:hover { opacity: 1; color: var(--accent); }
+
+        /* Cookie Banner */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15,23,36,0.95);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            z-index: 999;
+            display: none;
+        }
+        #cookie-banner.show { display: block; }
+
+        @media (min-width: 640px) {
+            .hero h1 { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <nav aria-label="Main navigation">
+                <div class="logo">TradeGuardian</div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how">How it Works</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#download" class="btn btn-primary">Get the App</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1>Protect Your Capital.<br>Trade with Discipline.</h1>
+            <p>TradeGuardian blocks impulsive trades, calculates position size, and enforces daily loss limits.</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn btn-primary btn-lg">Get the App — Free</a>
+                <a href="#newsletter" class="btn btn-outline">Join Waitlist</a>
+            </div>
+            <div class="hero-mockup">
+                <!-- TODO: Replace with real mockup -->
+                <img src="assets/phone-mockup.png" alt="TradeGuardian app preview on iPhone" loading="lazy"
+                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQwIiBoZWlnaHQ9IjY4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIiByeD0iNDAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIzMCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk1vY2t1cDwvdGV4dD48L3N2Zz4='">
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="section bg-white">
+        <div class="container text-center">
+            <h2 class="section-title">Everything You Need to Trade Like a Pro</h2>
+            <p class="section-subtitle">Stop blowing accounts. Start trading with rules that actually work.</p>
+            <div class="grid grid-3">
+                <div class="feature-card">
+                    <h3>Accurate Position Sizing</h3>
+                    <p>Automatically calculates risk-based position sizes using your account balance and stop-loss.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Overtrading Protection</h3>
+                    <p>Blocks new trades after you hit your daily loss limit or max number of trades.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Daily Rules & Journal</h3>
+                    <p>Enforce pre-market rules and automatically log every trade with screenshots.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="section">
+        <div class="container text-center">
+            <h2 class="section-title">How It Works</h2>
+            <div class="grid grid-3 steps">
+                <div class="step">
+                    <h3>Set Your Rules</h3>
+                    <p>Define max daily loss, max trades, and risk per trade in seconds.</p>
+                </div>
+                <div class="step">
+                    <h3>Trade Normally</h3>
+                    <p>Place trades in your broker as usual – TradeGuardian watches in the background.</p>
+                </div>
+                <div class="step">
+                    <h3>Stay Protected</h3>
+                    <p>Get blocked from bad trades and receive instant feedback on rule breaks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREENSHOT GALLERY -->
+    <section class="section bg-white">
+        <div class="container text-center">
+            <h2 class="section-title">See It In Action</h2>
+            <div class="gallery">
+                <figure>
+                    <picture>
+                        <source srcset="assets/screenshot-1.webp" type="image/webp">
+                        <img src="assets/screenshot-1.jpg" alt="Position sizing calculator" loading="lazy">
+                    </picture>
+                    <figcaption>Risk-based position sizing</figcaption>
+                </figure>
+                <figure>
+                    <picture>
+                        <source srcset="assets/screenshot-2.webp" type="image/webp">
+                        <img src="assets/screenshot-2.jpg" alt="Daily loss limit reached alert" loading="lazy">
+                    </picture>
+                    <figcaption>Daily loss limit protection</figcaption>
+                </figure>
+                <figure>
+                    <picture>
+                        <source srcset="assets/screenshot-3.webp" type="image/webp">
+                        <img src="assets/screenshot-3.jpg" alt="Trade journal with screenshots" loading="lazy">
+                    </picture>
+                    <figcaption>Automatic trade journal</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section">
+        <div class="container text-center">
+            <h2 class="section-title">Traders Love TradeGuardian</h2>
+            <div class="grid grid-3">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>“Finally stopped revenge trading. Saved my account in the first week.”</p>
+                    <strong>Mike D., London</strong>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>“The position sizing calculator alone is worth it. Super accurate.”</p>
+                    <strong>Sarah K., New York</strong>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>“Best $9.99 I ever spent on trading software.”</p>
+                    <strong>Carlos M., Singapore</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="section bg-white">
+        <div class="container text-center">
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 900px; margin: 0 auto;">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price">$0<span style="font-size:1rem;">/forever</span></div>
+                    <ul style="text-align:left; margin:2rem 0;">
+                        <li>✓ Basic position sizing</li>
+                        <li>✓ Daily loss limit</li>
+                        <li>✓ Up to 3 trades/day</li>
+                    </ul>
+                    <a href="#download" class="btn btn-outline">Download Free</a>
+                </div>
+                <div class="pricing-card pro">
+                    <div style="background:var(--accent);color:white;padding:0.5rem;border-radius:8px;margin-bottom:1rem;">Most Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price">$9.99<span style="font-size:1rem;">/month</span></div>
+                    <ul style="text-align:left; margin:2rem 0;">
+                        <li>✓ Everything in Free</li>
+                        <li>✓ Unlimited trades</li>
+                        <li>✓ Advanced rules engine</li>
+                        <li>✓ Trade journal + screenshots</li>
+                        <li>✓ Priority support</li>
+                    </ul>
+                    <a href="#download" class="btn btn-accent">Get Pro</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+        <div class="container" style="max-width:800px;">
+            <h2 class="section-title text-center">Frequently Asked Questions</h2>
+            <div class="faq">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Which brokers does TradeGuardian support?<span></span></button>
+                    <div class="faq-answer">Currently works with Thinkorswim, TradingView, MetaTrader 5, and any broker that allows screen monitoring. More integrations coming soon.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Is my trading account safe?<span></span></button>
+                    <div class="faq-answer">100%. TradeGuardian never accesses your broker credentials and cannot place or cancel trades on your behalf. It only reads screen pixels and can block keyboard/mouse when rules are broken.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Can I try Pro features before paying?<span></span></button>
+                    <div class="faq-answer">Yes! Every new user gets a 7-day free trial of Pro with no credit card required.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Do you offer refunds?<span></span></button>
+                    <div class="faq-answer">Yes – full refund within 30 days if you're not completely satisfied.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Will this work on Mac?<span></span></button>
+                    <div class="faq-answer">Yes, native apps for Windows and macOS (Intel + Apple Silicon).</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER / FOOTER -->
+    <footer id="newsletter">
+        <div class="container">
+            <div style="max-width:600px; margin:0 auto 4rem; text-align:center;">
+                <h2 style="color:white; margin-bottom:1rem;">Join 25,000+ traders</h2>
+                <form id="newsletter-form" style="display:flex; gap:1rem; flex-direction:column; max-width:420px; margin:0 auto;">
+                    <input type="email" placeholder="Enter your email" required aria-label="Email for newsletter" style="padding:1rem; border-radius:var(--radius); border:none; font-size:1rem;">
+                    <button type="submit" class="btn btn-accent">Subscribe</button>
+                </form>
+                <p id="form-message" style="margin-top:1rem; color:var(--accent);"></p>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <strong>Product</strong><br>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#">Download</a>
+                </div>
+                <div>
+                    <strong>Company</strong><br>
+                    <a href="#">About</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div>
+                    <strong>Legal</strong><br>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+            <p style="text-align:center; opacity:0.7; margin-top:3rem;">© 2025 TradeGuardian. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" role="alert" aria-live="polite">
+        <p>We use cookies to improve your experience. <button id="accept-cookies" style="background:var(--accent); color:white; border:none; padding:0.5rem 1rem; border-radius:8px; margin-left:1rem;">Accept</button></p>
+    </div>
+
+    <!-- Analytics Placeholders -->
+    <!-- 
+        Google Analytics (GA4) 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXX');
+        </script>
+    -->
+    <!-- Facebook Pixel Code -->
+    <!-- <script>
+      !function(f,b,e,v,n,t,s){...}
+    </script> -->
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', !expanded);
+                btn.classList.toggle('active');
+                const answer = btn.nextElementSibling;
+                answer.style.maxHeight = expanded ? '0' : answer.scrollHeight + 'px';
+            });
+        });
+
+        // Newsletter Form
+        const form = document.getElementById('newsletter-form');
+        const message = document.getElementById('form-message');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = form.querySelector('input[type="email"]').value.trim();
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                message.textContent = 'Please enter a valid email.';
+                message.style.color = '#ef4444';
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, source: 'landing' })
+                });
+                if (res.ok) {
+                    message.textContent = 'Thank you! Check your email for confirmation.';
+                    message.style.color = '#10b981';
+                    form.reset();
+                } else {
+                    throw new Error();
+                }
+            } catch (err) {
+                message.textContent = 'Something went wrong. Try again later.';
+                message.style.color = '#ef4444';
+            }
+        });
+
+        // Cookie Banner
+        if (!localStorage.getItem('cookies-accepted')) {
+            document.getElementById('cookie-banner').classList.add('show');
+        }
+        document.getElementById('accept-cookies').addEventListener('click', () => {
+            localStorage.setItem('cookies-accepted', 'true');
+            document.getElementById('cookie-banner').classList.remove('show');
+        });
+    </script>
+</body>
+</html>
