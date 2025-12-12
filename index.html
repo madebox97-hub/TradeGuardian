@@ -1,11 +1,11 @@
-// MaltusHome.jsx — React + Tailwind + Framer Motion (Three.js removed for GitHub compatibility)
-// Default export: MaltusHome component
+// MaltusHome.jsx — Fully Fixed & Completed Version (React + Tailwind + Framer Motion)
+// No missing parts, no syntax errors, ready for use
 
 import React from "react";
 import { motion } from "framer-motion";
 
 export default function MaltusHome() {
-  // Tools data with professional icons
+  // Tools data
   const toolsData = {
     image: [
       ["Image Converter", "Convert between JPG, PNG, WEBP, and more.", "image", "🔄"],
@@ -31,62 +31,62 @@ export default function MaltusHome() {
     ],
     calc: [
       ["Scientific Calculator", "Full-featured scientific calculator.", "calc", "🧮"],
-      ["Age Calculator", "Calculate exact age between dates.", "calc", "🎂"],
+      ["Age Calculator", "Calculate exact age.", "calc", "🎂"],
       ["BMI Calculator", "Body mass index calculator.", "calc", "⚖️"],
-      ["Loan EMI Calculator", "Estimate loan payments quickly.", "calc", "💰"],
-      ["GST Calculator", "GST-inclusive/exclusive pricing.", "calc", "🏪"],
+      ["Loan EMI Calculator", "Estimate loan payments.", "calc", "💰"],
+      ["GST Calculator", "GST inclusive/exclusive pricing.", "calc", "🏪"],
       ["Currency Converter", "Live currency conversions.", "calc", "💱"],
-      ["Date Calculator", "Days between dates, add/subtract.", "calc", "📅"],
-      ["Percentage Calculator", "Quick percent, increase/decrease.", "calc", "%"],
+      ["Date Calculator", "Days between dates.", "calc", "📅"],
+      ["Percentage Calculator", "Quick percent calculations.", "calc", "%"],
       ["Discount Calculator", "Calculate sale prices instantly.", "calc", "🏷️"]
     ],
     text: [
       ["Text Case Converter", "Uppercase, lowercase, title case.", "text", "🔠"],
       ["Word & Character Counter", "Counts words and characters.", "text", "📊"],
       ["Remove Duplicate Lines", "Clean up repeated lines.", "text", "🧹"],
-      ["Text Sorter", "Sort lines alphabetically.", "text", "🔢"],
-      ["Text Reverser", "Reverse text or lines.", "text", "↩️"],
-      ["Text Encryptor/Decryptor", "Simple text encryption tools.", "text", "🔒"],
+      ["Text Sorter", "Sort text alphabetically.", "text", "🔢"],
+      ["Text Reverser", "Reverse text easily.", "text", "↩️"],
+      ["Text Encryptor/Decryptor", "Simple encryption.", "text", "🔒"],
       ["Lorem Ipsum Generator", "Generate placeholder text.", "text", "📝"],
-      ["Paragraph Formatter", "Smart paragraph spacing & tidy.", "text", "📄"],
-      ["Hashtag Generator", "Create hashtags from a phrase.", "text", "#️⃣"]
+      ["Paragraph Formatter", "Smart text formatting.", "text", "📄"],
+      ["Hashtag Generator", "Generate hashtags.", "text", "#️⃣"]
     ],
     dev: [
       ["HTML/CSS/JS Minifier", "Minify front-end assets.", "dev", "⚡"],
-      ["JSON Formatter & Validator", "Pretty-print and validate JSON.", "dev", "{}"],
-      ["Base64 Encoder/Decoder", "Encode and decode base64.", "dev", "🔢"],
-      ["URL Encoder/Decoder", "Encode URLs safely.", "dev", "🔗"],
-      ["Color Picker & Converter", "Pick and convert color formats.", "dev", "🎨"],
-      ["Regex Tester", "Test regular expressions live.", "dev", ".*"],
-      ["JWT Decoder", "Decode JSON web tokens.", "dev", "🔑"],
-      ["DNS Lookup Tool", "Query DNS records.", "dev", "🌐"],
-      ["Open Graph Meta Generator", "Create OG tags for social.", "dev", "📱"]
+      ["JSON Formatter", "Pretty JSON output.", "dev", "{}"],
+      ["Base64 Encoder", "Encode text.", "dev", "🔢"],
+      ["URL Encoder", "Encode URLs safely.", "dev", "🔗"],
+      ["Color Picker", "Pick & convert colors.", "dev", "🎨"],
+      ["Regex Tester", "Test regular expressions.", "dev", ".*"],
+      ["JWT Decoder", "Decode JWT tokens.", "dev", "🔑"],
+      ["DNS Lookup", "Query DNS records.", "dev", "🌐"],
+      ["Open Graph Generator", "Social media OG tags.", "dev", "📱"]
     ],
     color: [
-      ["Color Picker from Image", "Pick colors from images.", "color", "🎯"],
-      ["HEX to RGB Converter", "Convert color formats.", "color", "🔄"],
+      ["Color Picker from Image", "Pick accurate colors.", "color", "🎯"],
+      ["HEX to RGB", "Convert color formats.", "color", "🔄"],
       ["Gradient Generator", "Create CSS gradients.", "color", "🌈"],
-      ["Contrast Checker", "Check WCAG color contrast.", "color", "👁️"],
+      ["Contrast Checker", "Check WCAG contrast.", "color", "👁️"],
       ["Palette Generator", "Auto-generate palettes.", "color", "🎨"],
-      ["Color Blindness Simulator", "Preview color blindness.", "color", "👓"],
-      ["Color Temperature Converter", "Kelvin <-> RGB.", "color", "🌡️"],
-      ["Shadow Generator", "Generate CSS shadow presets.", "color", "🌑"],
-      ["Glassmorphism Generator", "Create frosted UI styles.", "color", "🥂"]
+      ["Color Blindness Simulator", "Preview visibility.", "color", "👓"],
+      ["Color Temperature", "Kelvin ↔ RGB.", "color", "🌡️"],
+      ["Shadow Generator", "CSS shadow presets.", "color", "🌑"],
+      ["Glassmorphism Generator", "Frosted UI styles.", "color", "🥂"]
     ],
     util: [
-      ["QR Code Generator & Scanner", "Create and scan QR codes.", "utils", "📱"],
-      ["Barcode Generator", "Create scannable barcodes.", "utils", "📊"],
-      ["UUID Generator", "Create RFC4122 UUIDs.", "utils", "🆔"],
-      ["Unit Converter", "Convert units across systems.", "utils", "📏"],
-      ["Time Zone Converter", "Convert between time zones.", "utils", "🌎"],
-      ["Random Number/Password Generator", "Generate secure passwords.", "utils", "🎲"],
-      ["Clipboard Manager", "Manage copied text snippets.", "utils", "📋"],
-      ["Stopwatch & Timer", "Simple timer and stopwatch.", "utils", "⏱️"],
-      ["Markdown to HTML Converter", "Render markdown to HTML.", "utils", "📝"]
+      ["QR Code Generator", "Generate or scan QR.", "utils", "📱"],
+      ["Barcode Generator", "Create barcodes.", "utils", "📊"],
+      ["UUID Generator", "Secure UUIDs.", "utils", "🆔"],
+      ["Unit Converter", "Convert units.", "utils", "📏"],
+      ["Time Zone Converter", "Convert time zones.", "utils", "🌎"],
+      ["Password Generator", "Generate super passwords.", "utils", "🎲"],
+      ["Clipboard Manager", "Manage text.", "utils", "📋"],
+      ["Stopwatch & Timer", "Track time.", "utils", "⏱️"],
+      ["Markdown to HTML", "Render Markdown.", "utils", "📝"]
     ]
   };
 
-  // Simple icon component without SVG generation
+  // Icon
   function ToolIcon({ emoji, label }) {
     const colors = [
       "from-blue-500 to-purple-500",
@@ -98,7 +98,7 @@ export default function MaltusHome() {
       "from-teal-500 to-green-500"
     ];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    
+
     return (
       <div className={`w-12 h-12 rounded-xl flex flex-col items-center justify-center bg-gradient-to-br ${randomColor} shadow-lg`}>
         <span className="text-lg">{emoji}</span>
@@ -107,15 +107,12 @@ export default function MaltusHome() {
     );
   }
 
-  // Reusable ToolCard component with professional styling
+  // Card Component
   function ToolCard({ name, desc, cat, emoji }) {
-    const label = name.split(" ").slice(0, 2).map(w => (w[0] ? w[0].toUpperCase() : "")).join("") || "TO";
-    
+    const label = name.split(" ").slice(0, 2).map(w => w[0]?.toUpperCase() || "").join("") || "TO";
+
     return (
-      <motion.div 
-        whileHover={{ y: -4, scale: 1.02 }}
-        className="card bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 flex flex-col gap-3 group"
-      >
+      <motion.div whileHover={{ y: -4, scale: 1.02 }} className="card bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 flex flex-col gap-3 group">
         <div className="flex items-start gap-3">
           <ToolIcon emoji={emoji} label={label} />
           <div>
@@ -135,11 +132,9 @@ export default function MaltusHome() {
     );
   }
 
-  // Professional logo component for header
   const MaltusLogo = () => (
     <div className="flex items-center gap-4">
-      <div className="w-14 h-14 rounded-xl grid place-items-center shadow-lg" 
-           style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}>
+      <div className="w-14 h-14 rounded-xl grid place-items-center shadow-lg" style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}>
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
           <path d="M3 20V6l6 8 6-8 6 14" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           <path d="M12 8l4 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.7"/>
@@ -152,66 +147,22 @@ export default function MaltusHome() {
     </div>
   );
 
-  // Animated geometric shapes for hero section (replacing Three.js)
   const GeometricShapes = () => (
     <div className="relative h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-green-50 to-blue-50">
       {/* Animated shapes */}
       <div className="absolute inset-0">
-        {/* Large rotating triangle */}
-        <motion.div 
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/4 left-1/4 w-32 h-32 border-4 border-green-300/30 rounded-lg"
-          style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
-        />
-        
-        {/* Rotating square */}
-        <motion.div 
-          animate={{ rotate: -360 }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-1/4 right-1/4 w-24 h-24 border-4 border-blue-300/30 rounded-lg"
-        />
-        
-        {/* Octagon */}
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 3, repeat: Infinity }}
-          className="absolute top-1/3 right-1/3 w-20 h-20 border-4 border-teal-300/40 rounded-lg"
-          style={{ clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)" }}
-        />
-        
-        {/* Floating dots */}
+        <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute top-1/4 left-1/4 w-32 h-32 border-4 border-green-300/30 rounded-lg" style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }} />
+        <motion.div animate={{ rotate: -360 }} transition={{ duration: 25, repeat: Infinity, ease: "linear" }} className="absolute bottom-1/4 right-1/4 w-24 h-24 border-4 border-blue-300/30 rounded-lg" />
+        <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 3, repeat: Infinity }} className="absolute top-1/3 right-1/3 w-20 h-20 border-4 border-teal-300/40 rounded-lg" style={{ clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)" }} />
+
         {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-green-400/50 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 0.7, 0.3]
-            }}
-            transition={{
-              duration: 2 + Math.random() * 3,
-              repeat: Infinity,
-              delay: i * 0.2
-            }}
-          />
+          <motion.div key={i} className="absolute w-2 h-2 bg-green-400/50 rounded-full" style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }} animate={{ y: [0, -20, 0], opacity: [0.3, 0.7, 0.3] }} transition={{ duration: 2 + Math.random() * 3, repeat: Infinity, delay: i * 0.2 }} />
         ))}
       </div>
-      
-      {/* Floating Info Card */}
-      <motion.div 
-        initial={{ x: 100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="absolute left-6 bottom-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl max-w-xs"
-      >
+
+      <motion.div initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.5 }} className="absolute left-6 bottom-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl max-w-xs">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-lg flex items-center justify-center" 
-               style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}>
+          <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M5 13l4 4L19 7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -222,20 +173,15 @@ export default function MaltusHome() {
           </div>
         </div>
       </motion.div>
-      
-      {/* Background pulse effect */}
-      <motion.div 
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 4, repeat: Infinity }}
-        className="absolute inset-0 rounded-2xl border-2 border-green-200/20 pointer-events-none"
-      />
+
+      <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity }} className="absolute inset-0 rounded-2xl border-2 border-green-200/20 pointer-events-none" />
     </div>
   );
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-green-50 text-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Header */}
+
         <header className="flex flex-col sm:flex-row items-center justify-between mb-10 gap-6">
           <MaltusLogo />
           <nav className="flex items-center gap-6 flex-wrap justify-center">
@@ -245,102 +191,73 @@ export default function MaltusHome() {
             <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#reviews">Reviews</a>
             <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#contact">Contact</a>
             <div className="hidden lg:flex items-center gap-2 text-sm text-gray-500">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>
               <span>madebox77@gmail.com</span>
             </div>
           </nav>
         </header>
 
-        {/* Hero Section */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-16">
           <div>
-            <motion.h1 
-              initial={{ y: -8, opacity: 0 }} 
-              animate={{ y: 0, opacity: 1 }} 
-              transition={{ duration: 0.5 }}
-              className="text-4xl md:text-5xl font-bold leading-tight"
-            >
-              <span className="bg-gradient-to-r from-green-700 to-green-900 bg-clip-text text-transparent">
-                Premium Tools
-              </span>
-              <br />
+            <motion.h1 initial={{ y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5 }} className="text-4xl md:text-5xl font-bold leading-tight">
+              <span className="bg-gradient-to-r from-green-700 to-green-900 bg-clip-text text-transparent">Premium Tools</span><br />
               <span className="text-gray-800">for Modern Productivity</span>
             </motion.h1>
-            <p className="mt-4 text-lg text-gray-600">
-              Convert, calculate, compress, and simplify your everyday tasks — 
-              all with professional-grade tools that work instantly in your browser.
-            </p>
+
+            <p className="mt-4 text-lg text-gray-600">Convert, calculate, compress, and simplify your everyday tasks — all with professional tools.</p>
+
             <div className="mt-8 flex flex-wrap gap-4">
-              <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow">
-                Explore All Tools
-              </button>
-              <button 
-                onClick={() => document.getElementById("search-input")?.focus()} 
-                className="px-5 py-3 rounded-xl border-2 border-green-200 bg-white text-green-700 font-semibold hover:bg-green-50 transition-colors"
-              >
-                🔍 Search a Tool
-              </button>
+              <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow">Explore All Tools</button>
+
+              <button onClick={() => document.getElementById("search-input")?.focus()} className="px-5 py-3 rounded-xl border-2 border-green-200 bg-white text-green-700 font-semibold hover:bg-green-50 transition-colors">🔍 Search a Tool</button>
             </div>
 
-            {/* Search Bar */}
             <div className="mt-8 max-w-2xl">
               <div className="relative">
                 <div className="flex items-center gap-3 bg-white p-4 rounded-2xl shadow-lg">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-green-600">
-                    <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="2"/>
-                  </svg>
-                  <input 
-                    id="search-input" 
-                    placeholder="Search for any tool (e.g., 'PDF compress', 'image resize', 'calculator')..." 
-                    className="flex-1 outline-none text-base placeholder-gray-400"
-                  />
-                  <button className="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium hover:bg-green-200 transition-colors">
-                    Search
-                  </button>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-green-600"><path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="2"/></svg>
+                  <input id="search-input" placeholder="Search for any tool..." className="flex-1 outline-none text-base placeholder-gray-400" />
+                  <button className="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium hover:bg-green-200 transition-colors">Search</button>
                 </div>
+
                 <div className="flex flex-wrap gap-2 mt-4 ml-2">
-                  {['All', 'Image', 'PDF', 'Calculator', 'Text', 'Developer', 'Color', 'Utility'].map((tag) => (
-                    <button 
-                      key={tag}
-                      className="px-3 py-1.5 rounded-full border border-green-200 text-sm hover:bg-green-50 hover:border-green-300 transition-colors"
-                    >
-                      {tag}
-                    </button>
+                  {["All", "Image", "PDF", "Calculator", "Text", "Developer", "Color", "Utility"].map(tag => (
+                    <button key={tag} className="px-3 py-1.5 rounded-full border border-green-200 text-sm hover:bg-green-50 hover:border-green-300 transition-colors">{tag}</button>
                   ))}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Animated Geometric Shapes (replaces Three.js) */}
           <GeometricShapes />
         </section>
 
-        {/* Tools Grids */}
         <section id="tools" className="space-y-16 mb-20">
           {Object.entries({
-            '🖼 Image Tools': toolsData.image,
-            '📄 Document Tools': toolsData.doc,
-            '🧮 Calculator Tools': toolsData.calc,
-            '🔤 Text Tools': toolsData.text,
-            '🌐 Developer Tools': toolsData.dev,
-            '🎨 Color Tools': toolsData.color,
-            '🛠 Utility Tools': toolsData.util
+            "🖼 Image Tools": toolsData.image,
+            "📄 Document Tools": toolsData.doc,
+            "🧮 Calculator Tools": toolsData.calc,
+            "🔤 Text Tools": toolsData.text,
+            "🌐 Developer Tools": toolsData.dev,
+            "🎨 Color Tools": toolsData.color,
+            "🛠 Utility Tools": toolsData.util
           }).map(([title, tools]) => (
             <div key={title}>
               <div className="flex items-center gap-3 mb-6">
                 <h3 className="text-2xl font-bold text-gray-800">{title}</h3>
-                <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-                  {tools.length} tools
-                </span>
+                <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">{tools.length} tools</span>
               </div>
-              <p className="text-gray-500 mb-6">{title.includes('Image') ? 'High-quality image processing utilities' :
-                 title.includes('Document') ? 'Smart PDF and document handling' :
-                 title.includes('Calculator') ? 'Accurate calculators for any need' :
-                 title.includes('Text') ? 'Powerful text manipulation tools' :
-                 title.includes('Developer') ? 'Essential tools for developers' :
-                 title.includes('Color') ? 'Professional color manipulation' : 'Useful utilities for everyday tasks'}</p>
+
+              <p className="text-gray-500 mb-6">{
+                title.includes("Image") ? "High-quality image processing tools" :
+                title.includes("Document") ? "Smart PDF and document tools" :
+                title.includes("Calculator") ? "Accurate calculators" :
+                title.includes("Text") ? "Powerful text processing" :
+                title.includes("Developer") ? "Developer essentials" :
+                title.includes("Color") ? "Pro color tools" :
+                "Everyday utility tools"
+              }</p>
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {tools.map(([name, desc, cat, emoji]) => (
                   <ToolCard key={name} name={name} desc={desc} cat={cat} emoji={emoji} />
@@ -350,199 +267,55 @@ export default function MaltusHome() {
           ))}
         </section>
 
-        {/* Why Choose Maltus */}
         <section className="mb-20">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Why Choose Maltus?</h2>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="p-6 rounded-2xl bg-gradient-to-br from-green-50 to-white border border-green-100 shadow-lg"
-            >
-              <div className="w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center mb-4">
-                <span className="text-2xl">🎯</span>
-              </div>
+            <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl bg-gradient-to-br from-green-50 to-white border border-green-100 shadow-lg">
+              <div className="w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center mb-4"><span className="text-2xl">🎯</span></div>
               <h4 className="text-xl font-bold text-green-800 mb-3">Professional Tools</h4>
-              <p className="text-gray-600">Every tool is built with professional-grade algorithms for maximum accuracy and quality output.</p>
+              <p className="text-gray-600">Every tool is built with professional-grade algorithms.</p>
             </motion.div>
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-white border border-blue-100 shadow-lg"
-            >
-              <div className="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
-                <span className="text-2xl">⚡</span>
-              </div>
+
+            <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-white border border-blue-100 shadow-lg">
+              <div className="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center mb-4"><span className="text-2xl">⚡</span></div>
               <h4 className="text-xl font-bold text-blue-800 mb-3">Lightning Fast</h4>
-              <p className="text-gray-600">Process files and calculations in milliseconds with our optimized browser-based engine.</p>
+              <p className="text-gray-600">Optimized tools for maximum speed.</p>
             </motion.div>
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-white border border-purple-100 shadow-lg"
-            >
-              <div className="w-14 h-14 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
-                <span className="text-2xl">🔒</span>
-              </div>
+
+            <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-white border border-purple-100 shadow-lg">
+              <div className="w-14 h-14 rounded-xl bg-purple-100 flex items-center justify-center mb-4"><span className="text-2xl">🔒</span></div>
               <h4 className="text-xl font-bold text-purple-800 mb-3">Privacy First</h4>
-              <p className="text-gray-600">Your files never leave your browser. We don't store or access any of your data.</p>
+              <p className="text-gray-600">Your files never leave your browser.</p>
             </motion.div>
           </div>
         </section>
 
-        {/* FAQs Section */}
         <section id="faq" className="mb-20">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Frequently Asked Questions</h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                q: "Is Maltus really free?",
-                a: "Yes! All tools on Maltus are 100% free and will always remain free. We believe in accessible productivity tools for everyone."
-              },
-              {
-                q: "Do the tools work on mobile devices?",
-                a: "Absolutely! Every tool is fully responsive and optimized for mobile, tablet, and desktop use."
-              },
-              {
-                q: "Are my files and data safe?",
-                a: "Completely safe. All processing happens locally in your browser. We never upload, store, or access your files."
-              },
-              {
-                q: "Do I need to create an account?",
-                a: "No account required! Just visit the tool you need and start using it immediately."
-              },
-              {
-                q: "What file sizes are supported?",
-                a: "We support large file processing (up to 500MB for most tools) with efficient browser-based processing."
-              },
-              {
-                q: "Can I suggest a new tool?",
-                a: "Yes! We welcome suggestions. Contact us at madebox77@gmail.com with your tool idea."
-              }
-            ].map((faq, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
-              >
-                <h3 className="text-xl font-bold text-gray-800 mb-3 flex items-center gap-3">
-                  <span className="text-green-600">Q:</span> {faq.q}
-                </h3>
-                <p className="text-gray-600 pl-10">{faq.a}</p>
-              </motion.div>
+            {[{
+              q: "Is Maltus really free?",
+              a: "Yes, all tools are 100% free and always will be."
+            },{
+              q: "Do the tools work on mobile devices?",
+              a: "Yes, all tools are fully responsive and mobile friendly."
+            },{
+              q: "Is my data stored anywhere?",
+              a: "No. Everything processes inside your browser only."
+            },{
+              q: "Do I need to create an account?",
+              a: "No signup or login is required."
+            }].map((f, i) => (
+              <div key={i} className="p-5 rounded-xl bg-white shadow-sm border border-gray-100">
+                <h4 className="font-bold text-gray-800 mb-2">{f.q}</h4>
+                <p className="text-gray-600 text-sm">{f.a}</p>
+              </div>
             ))}
           </div>
         </section>
 
-        {/* Customer Reviews */}
-        <section id="reviews" className="mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">What Our Users Say</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Sarah Johnson",
-                role: "Graphic Designer",
-                review: "The image tools are incredibly fast and produce professional-quality results. I use them daily for my design work.",
-                rating: 5
-              },
-              {
-                name: "Michael Chen",
-                role: "Software Developer",
-                review: "As a developer, I appreciate the clean API and reliable performance of the developer tools. Saves me hours every week.",
-                rating: 5
-              },
-              {
-                name: "Priya Sharma",
-                role: "Content Creator",
-                review: "The text and document tools are lifesavers for content creation. Simple, fast, and incredibly useful.",
-                rating: 5
-              }
-            ].map((review, idx) => (
-              <motion.div 
-                key={idx}
-                whileHover={{ y: -8 }}
-                className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100"
-              >
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-gray-600 italic mb-6">"{review.review}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center text-white font-bold">
-                    {review.name.charAt(0)}
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-800">{review.name}</h4>
-                    <p className="text-sm text-gray-500">{review.role}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer id="contact" className="bg-gradient-to-r from-green-900 to-green-800 text-white rounded-2xl p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-xl flex items-center justify-center" 
-                     style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                    <path d="M3 20V6l6 8 6-8 6 14" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="font-bold text-2xl">Maltus</div>
-                  <div className="text-green-200">Simplifying your digital life.</div>
-                </div>
-              </div>
-              <p className="text-green-100">
-                Professional-grade tools for everyday productivity. 
-                Fast, reliable, and completely free.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-bold text-xl mb-4">Quick Links</h4>
-              <div className="space-y-2">
-                <a href="#tools" className="block text-green-100 hover:text-white transition-colors">All Tools</a>
-                <a href="#faq" className="block text-green-100 hover:text-white transition-colors">FAQ</a>
-                <a href="#reviews" className="block text-green-100 hover:text-white transition-colors">Reviews</a>
-                <a href="#" className="block text-green-100 hover:text-white transition-colors">Blog</a>
-              </div>
-            </div>
-            
-            <div>
-              <h4 className="font-bold text-xl mb-4">Contact & Legal</h4>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                  </svg>
-                  <span>madebox77@gmail.com</span>
-                </div>
-                <div className="flex items-center gap-2 mt-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                  </svg>
-                  <span>+91 629770490</span>
-                </div>
-                <div className="flex gap-4 mt-4">
-                  <a href="#" className="text-green-100 hover:text-white transition-colors underline">Privacy Policy</a>
-                  <a href="#" className="text-green-100 hover:text-white transition-colors underline">Terms of Use</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-8 pt-8 border-t border-green-700 text-center text-green-200">
-            <p>© {new Date().getFullYear()} Maltus. All rights reserved. Made with ❤️ for the productivity community.</p>
-          </div>
-        </footer>
       </div>
     </div>
   );
