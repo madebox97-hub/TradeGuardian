@@ -1,381 +1,605 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Maltus — 100+ Free Online Tools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Satoshi:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+// MaltusHome.jsx — React + Tailwind + Framer Motion + Three.js
+// Default export: MaltusHome component
 
-  <style>
-    :root {
-      --green: #10B981;        /* Emerald Green */
-      --green-dark: #059669;
-      --blue: #1E40AF;         /* Deep Blue */
-      --blue-light: #3B82F6;
-      --gray-50: #F9FAFB;
-      --gray-900: #111827;
-      --shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-      --shadow-lg: 0 25px 50px -12px rgba(0,0,0,0.25);
-    }
+import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f8fffb 0%, #f0fdfa 100%);
-      color: var(--gray-900);
-      overflow-x: hidden;
-    }
+// Note: Tailwind CSS must be configured in your project for classes to work.
+// This component uses native Three.js (loaded as a dependency) and a lightweight
+// icon generator which creates SVG icons on the fly per tool.
 
-    /* Top Bar */
-    .topbar {
-      background: rgba(16,185,129,0.08);
-      padding: 10px 5%;
-      text-align: center;
-      font-size: 0.94rem;
-      color: var(--green-dark);
-    }
+export default function MaltusHome() {
+  const threeRef = useRef(null);
 
-    /* Navbar */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(20px);
-      z-index: 1000;
-      padding: 18px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    }
-    .logo {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 2rem;
-      font-weight: 900;
-      background: linear-gradient(90deg, var(--green), var(--blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .nav-links a {
-      margin-left: 2.5rem;
-      text-decoration: none;
-      color: #374151;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    .nav-links a:hover { color: var(--green); }
+  useEffect(() => {
+    let disposed = false;
+    // Dynamically import three to avoid SSR issues
+    import("three").then((THREE) => {
+      if (disposed) return;
+      try {
+        const canvas = threeRef.current;
+        if (!canvas) return;
 
-    /* Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 5%;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero h1 {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 5rem;
-      font-weight: 900;
-      line-height: 1.1;
-      background: linear-gradient(90deg, var(--green), var(--blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1.5rem;
-    }
-    .hero p {
-      font-size: 1.4rem;
-      max-width: 700px;
-      color: #4b5563;
-      margin-bottom: 3rem;
-    }
-    .cta-btn {
-      background: var(--green);
-      color: white;
-      padding: 16px 40px;
-      border-radius: 50px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      box-shadow: var(--shadow-lg);
-      transition: all 0.4s;
-      text-decoration: none;
-    }
-    .cta-btn:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(16,185,129,0.4);
-    }
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-    /* 3D Floating Icons */
-    .floating-icons {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .icon-3d {
-      position: absolute;
-      font-size: 4rem;
-      opacity: 0.15;
-      animation: float 20s infinite linear;
-    }
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(0deg); }
-      100% { transform: translateY(-100px) rotate(360deg); }
-    }
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 1000);
+        camera.position.z = 6;
 
-    /* Search Bar */
-    .search-box {
-      width: 90%;
-      max-width: 700px;
-      margin: 6rem auto 8rem;
-      position: relative;
-      z-index: 2;
-    }
-    .search-box input {
-      width: 100%;
-      padding: 20px 60px 20px 24px;
-      border-radius: 50px;
-      border: none;
-      background: white;
-      box-shadow: var(--shadow-lg);
-      font-size: 1.2rem;
-      outline: none;
-    }
-    .search-box i {
-      position: absolute;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--green);
-      font-size: 1.5rem;
-    }
+        const ambient = new THREE.AmbientLight(0xffffff, 0.9);
+        scene.add(ambient);
+        const dir = new THREE.DirectionalLight(0xffffff, 0.6);
+        dir.position.set(5, 10, 7);
+        scene.add(dir);
 
-    /* Tools Grid */
-    .section {
-      padding: 100px 5%;
-      text-align: center;
-    }
-    .section h2 {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: var(--gray-900);
-    }
-    .section p {
-      font-size: 1.3rem;
-      color: #6b7280;
-      max-width: 800px;
-      margin: 0 auto 4rem;
-    }
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    .card {
-      {
-      background: white;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      transform: translateY(0);
-    }
-    .card:hover {
-      transform: translateY(-20px) scale(1.02);
-      box-shadow: 0 40px 80px rgba(16,185,129,0.25);
-    }
-    .card-icon {
-      height: 120px;
-      background: linear-gradient(135deg, var(--green), var(--blue-light));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
-      color: white;
-    }
-    .card-body {
-      padding: 1.8rem;
-      text-align: left;
-    }
-    .card-body h3 {
-      font-size: 1.4rem;
-      margin-bottom: 0.8rem;
-      color: var(--gray-900);
-    }
-    .card-body p {
-      color: #6b7280;
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    .card-btn {
-      background: var(--green);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-block;
-      transition: 0.3s;
-    }
-    .card-btn:hover {
-      background: var(--green-dark);
-      transform: scale(1.1);
-    }
+        const group = new THREE.Group();
+        const mat = new THREE.MeshStandardMaterial({ color: 0x12a454, metalness: 0.3, roughness: 0.4 });
+        const geo1 = new THREE.TetrahedronGeometry(1.0);
+        const mesh1 = new THREE.Mesh(geo1, mat);
+        mesh1.position.set(-1.6, 0.5, 0);
 
-    /* Footer */
-    footer {
-      background: var(--gray-900);
-      color: white;
-      padding: 80px 5% 40px;
-      text-align: center;
-    }
-    .footer-logo {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 2.5rem;
-      font-weight: 900;
-      background: linear-gradient(90deg, var(--green), var(--blue-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
-    }
+        const geo2 = new THREE.BoxGeometry(1.2, 1.2, 1.2);
+        const mesh2 = new THREE.Mesh(geo2, new THREE.MeshStandardMaterial({ color: 0x0e8a43, metalness: 0.25, roughness: 0.35 }));
+        mesh2.position.set(0.8, -0.2, 0);
 
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 3.5rem; }
-      nav { padding: 15px 5%; }
-      .nav-links { display: none; } /* You can add a hamburger later */
-      .tools-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
+        const geo3 = new THREE.OctahedronGeometry(0.8);
+        const mesh3 = new THREE.Mesh(geo3, new THREE.MeshStandardMaterial({ color: 0x7be3b1, metalness: 0.2, roughness: 0.4 }));
+        mesh3.position.set(1.8, 0.6, -0.2);
 
-  <div class="topbar">
-    <p>✉️ madebox97@gmail.com  |  📞 +91 6297370490</p>
-  </div>
+        group.add(mesh1, mesh2, mesh3);
+        scene.add(group);
 
-  <nav>
-    <div class="logo">Maltus</div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Tools</a>
-      <a href="#">Contact</a>
-    </div>
-  </nav>
+        function resize() {
+          const rect = canvas.getBoundingClientRect();
+          const width = Math.max(300, Math.floor(rect.width));
+          const height = Math.max(180, Math.floor(rect.height));
+          if (renderer.domElement.width !== width || renderer.domElement.height !== height) {
+            renderer.setSize(width, height, false);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+          }
+        }
 
-  <section class="hero">
-    <div class="floating-icons">
-      <i class="fas fa-image icon-3d" style="left:10%; animation-delay: 0s;"></i>
-      <i class="fas fa-file-pdf icon-3d" style="left:25%; animation-delay: 4s;"></i>
-      <i class="fas fa-calculator icon-3d" style="left:40%; animation-delay: 8s;"></i>
-      <i class="fas fa-code icon-3d" style="left:60%; animation-delay: 2s;"></i>
-      <i class="fas fa-qrcode icon-3d" style="left:80%; animation-delay: 6s;"></i>
-      <i class="fas fa-palette icon-3d" style="left:90%; animation-delay: 10s;"></i>
-    </div>
+        let t = 0;
+        let rafId;
+        function animate() {
+          resize();
+          t += 0.01;
+          group.rotation.y = t * 0.6;
+          mesh1.rotation.x += 0.01;
+          mesh1.rotation.y += 0.015;
+          mesh2.rotation.y -= 0.01;
+          mesh2.rotation.z += 0.008;
+          mesh3.rotation.x -= 0.009;
+          mesh3.rotation.y += 0.01;
+          renderer.render(scene, camera);
+          rafId = requestAnimationFrame(animate);
+        }
 
-    <h1>Maltus</h1>
-    <p>100+ free online tools to convert, calculate, compress, generate & simplify your daily tasks in seconds.</p>
-    <a href="#tools" class="cta-btn">Explore All Tools →</a>
-  </section>
+        if (window.innerWidth > 520) animate(); else { renderer.setSize(420, 260); renderer.render(scene, camera); }
 
-  <div class="search-box">
-    <input type="text" placeholder="Search any tool… (Image compressor, PDF merge, QR code, etc.)" />
-    <i class="search"></i>
-  </div>
-
-  <section class="section" id="tools" data-aos="fade-up">
-    <h2>Powerful Tools for Everyone</h2>
-    <p>Professional-grade utilities trusted by millions. All free, no signup, no limits.</p>
-
-    <div class="tools-grid">
-
-      <!-- Image Tools -->
-      <div class="card" data-aos="zoom-in" data-aos-delay="100">
-        <div class="card-icon"><i class="fas fa-image"></i></div>
-        <div class="card-body">
-          <h3>Image Compressor</h3>
-          <p>Reduce image size up to 90% without losing quality.</p>
-          <a href="#" class="card-btn">Use Tool →</a>
-        </div>
-      </div>
-
-      <div class="card" data-aos="zoom-in" data-aos-delay="200">
-        <div class="card-icon"><i class="fas fa-crop"></i></div>
-        <div class="card-body">
-          <h3>Background Remover</h3>
-          <p>Remove background from any image with AI in one click.</p>
-          <a href="#" class="card-btn">Use Tool →</a>
-        </div>
-      </div>
-
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <div class="card-icon"><i class="fas fa-file-pdf"></i></div>
-        <div class="card-body">
-          <h3>PDF Compressor</h3>
-          <p>Compress PDFs while maintaining perfect quality.</p>
-          <a href="#" class="card-btn">Use Tool →</a>
-        </div>
-      </div>
-
-      <div class="card" data-aos="zoom-in" data-aos-delay="400">
-        <div class="card-icon"><i class="fas fa-qrcode"></i></div>
-        <div class="card-body">
-          <h3>QR Code Generator</h3>
-          <p>Create custom QR codes with logo & colors.</p>
-          <a href="#" class="card-btn">Use Tool →</a>
-        </div>
-      </div>
-
-      <div class="card" data-aos="zoom-in" data-aos-delay="500">
-        <div class="card-icon"><i class="fas fa-calculator"></i></div>
-        <div class="card-body">
-          <h3>Scientific Calculator</h3>
-          <p>Advanced calculator with history & functions.</p>
-          <a href="#" class="card-btn">Use Tool →</a>
-        </div>
-      </div>
-
-      <div class="card" data-aos="zoom-in" data-aos-delay="600">
-        <div class="card-icon"><i class="fas fa-palette"></i></div>
-        <div class="card-body">
-          <h3>Gradient Generator</h3>
-          <p>Create stunning gradients with live preview.</p>
-          <a href="#" class="card-btn">Use Tool →</a>
-        </div>
-      </div>
-
-      <!-- Add more cards as needed -->
-    </div>
-  </section>
-
-  <footer>
-    <div class="footer-logo">Maltus</div>
-    <p>Simplifying your digital life.</p>
-    <p style="margin: 1.5rem 0; opacity: 0.8;">✉️ toolswonder1@gmail.com</p>
-    <div style="margin-top: 2rem;">
-      <a href="#" style="color:#9ca3af; margin:0 1rem; text-decoration:none;">Privacy Policy</a>
-      <a href="#" style="color:#9ca3af; margin:0 1rem; text-decoration:none;">Terms of Use</a>
-    </div>
-  </footer>
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      once: true,
-      duration: 1000,
+        // cleanup
+        return () => {
+          disposed = true;
+          cancelAnimationFrame(rafId);
+          renderer.dispose();
+        };
+      } catch (err) {
+        // ignore three init errors; the layout will show fallback graphics
+        console.warn("Three init error:", err);
+      }
+    }).catch((err) => {
+      console.warn("three import failed:", err);
     });
-  </script>
-</body>
-</html>
+
+    return () => {
+      disposed = true;
+    };
+  }, []);
+
+  // Tools data with professional icons
+  const toolsData = {
+    image: [
+      ["Image Converter", "Convert between JPG, PNG, WEBP, and more.", "image", "🔄"],
+      ["Image Compressor", "Reduce file size while keeping quality.", "image", "📊"],
+      ["Image Resizer", "Resize images for web and thumbnails.", "image", "📐"],
+      ["Image Cropper", "Quick crop to common aspect ratios.", "image", "✂️"],
+      ["Image to Text (OCR)", "Extract text from images instantly.", "image", "🔤"],
+      ["Image Rotator/Flipper", "Rotate or flip images with one click.", "image", "↪️"],
+      ["Image Background Remover", "Remove backgrounds automatically.", "image", "🧹"],
+      ["Image Color Changer", "Replace or tweak image colors.", "image", "🎨"],
+      ["Image Enhancer (AI)", "Improve clarity and reduce noise.", "image", "🤖"]
+    ],
+    doc: [
+      ["PDF to Word / Word to PDF", "Convert documents quickly.", "doc", "📄"],
+      ["PDF Compressor", "Make PDFs smaller for sharing.", "doc", "📦"],
+      ["PDF Merger & Splitter", "Merge or split PDF pages.", "doc", "🧩"],
+      ["Document Converter", "Convert DOCX, ODT, TXT and more.", "doc", "📑"],
+      ["PDF Lock/Unlock", "Add or remove passwords from PDFs.", "doc", "🔐"],
+      ["eSign PDF", "Sign PDFs securely online.", "doc", "✍️"],
+      ["PDF Page Reorder", "Reorder pages visually.", "doc", "📑"],
+      ["Text to PDF Generator", "Create PDFs from plain text.", "doc", "📝"],
+      ["Excel to PDF Converter", "Export spreadsheets to PDF.", "doc", "📊"]
+    ],
+    calc: [
+      ["Scientific Calculator", "Full-featured scientific calculator.", "calc", "🧮"],
+      ["Age Calculator", "Calculate exact age between dates.", "calc", "🎂"],
+      ["BMI Calculator", "Body mass index calculator.", "calc", "⚖️"],
+      ["Loan EMI Calculator", "Estimate loan payments quickly.", "calc", "💰"],
+      ["GST Calculator", "GST-inclusive/exclusive pricing.", "calc", "🏪"],
+      ["Currency Converter", "Live currency conversions.", "calc", "💱"],
+      ["Date Calculator", "Days between dates, add/subtract.", "calc", "📅"],
+      ["Percentage Calculator", "Quick percent, increase/decrease.", "calc", "%"],
+      ["Discount Calculator", "Calculate sale prices instantly.", "calc", "🏷️"]
+    ],
+    text: [
+      ["Text Case Converter", "Uppercase, lowercase, title case.", "text", "🔠"],
+      ["Word & Character Counter", "Counts words and characters.", "text", "📊"],
+      ["Remove Duplicate Lines", "Clean up repeated lines.", "text", "🧹"],
+      ["Text Sorter", "Sort lines alphabetically.", "text", "🔢"],
+      ["Text Reverser", "Reverse text or lines.", "text", "↩️"],
+      ["Text Encryptor/Decryptor", "Simple text encryption tools.", "text", "🔒"],
+      ["Lorem Ipsum Generator", "Generate placeholder text.", "text", "📝"],
+      ["Paragraph Formatter", "Smart paragraph spacing & tidy.", "text", "📄"],
+      ["Hashtag Generator", "Create hashtags from a phrase.", "text", "#️⃣"]
+    ],
+    dev: [
+      ["HTML/CSS/JS Minifier", "Minify front-end assets.", "dev", "⚡"],
+      ["JSON Formatter & Validator", "Pretty-print and validate JSON.", "dev", "{}"],
+      ["Base64 Encoder/Decoder", "Encode and decode base64.", "dev", "🔢"],
+      ["URL Encoder/Decoder", "Encode URLs safely.", "dev", "🔗"],
+      ["Color Picker & Converter", "Pick and convert color formats.", "dev", "🎨"],
+      ["Regex Tester", "Test regular expressions live.", "dev", ".*"],
+      ["JWT Decoder", "Decode JSON web tokens.", "dev", "🔑"],
+      ["DNS Lookup Tool", "Query DNS records.", "dev", "🌐"],
+      ["Open Graph Meta Generator", "Create OG tags for social.", "dev", "📱"]
+    ],
+    color: [
+      ["Color Picker from Image", "Pick colors from images.", "color", "🎯"],
+      ["HEX to RGB Converter", "Convert color formats.", "color", "🔄"],
+      ["Gradient Generator", "Create CSS gradients.", "color", "🌈"],
+      ["Contrast Checker", "Check WCAG color contrast.", "color", "👁️"],
+      ["Palette Generator", "Auto-generate palettes.", "color", "🎨"],
+      ["Color Blindness Simulator", "Preview color blindness.", "color", "👓"],
+      ["Color Temperature Converter", "Kelvin <-> RGB.", "color", "🌡️"],
+      ["Shadow Generator", "Generate CSS shadow presets.", "color", "🌑"],
+      ["Glassmorphism Generator", "Create frosted UI styles.", "color", "🥂"]
+    ],
+    util: [
+      ["QR Code Generator & Scanner", "Create and scan QR codes.", "utils", "📱"],
+      ["Barcode Generator", "Create scannable barcodes.", "utils", "📊"],
+      ["UUID Generator", "Create RFC4122 UUIDs.", "utils", "🆔"],
+      ["Unit Converter", "Convert units across systems.", "utils", "📏"],
+      ["Time Zone Converter", "Convert between time zones.", "utils", "🌎"],
+      ["Random Number/Password Generator", "Generate secure passwords.", "utils", "🎲"],
+      ["Clipboard Manager", "Manage copied text snippets.", "utils", "📋"],
+      ["Stopwatch & Timer", "Simple timer and stopwatch.", "utils", "⏱️"],
+      ["Markdown to HTML Converter", "Render markdown to HTML.", "utils", "📝"]
+    ]
+  };
+
+  // Professional icon generator with emoji support
+  function createIconSVG(name, cat, emoji) {
+    function hCol(s, shift) { 
+      let h = 0; 
+      for (let i = 0; i < s.length; i++) { 
+        h = s.charCodeAt(i) + ((h << 5) - h); 
+      } 
+      const r = (h >> 0) & 255, g = (h >> 8) & 255, b = (h >> 16) & 255; 
+      return `rgb(${(r + shift) % 256},${(g + shift) % 256},${(b + shift) % 256})`; 
+    }
+    
+    const c1 = hCol(name, 20);
+    const c2 = hCol(name, 60);
+    const label = name.split(" ").slice(0, 2).map(w => (w[0] ? w[0].toUpperCase() : "")).join("") || "TO";
+
+    // Professional gradient background with emoji
+    return `
+<svg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='${name} icon'>
+<defs>
+<linearGradient id='g-${label}' x1='0' x2='1' y1='0' y2='1'>
+<stop offset='0%' stop-color='${c1}' />
+<stop offset='100%' stop-color='${c2}' />
+</linearGradient>
+<filter id='shadow' x='-20%' y='-20%' width='140%' height='140%'>
+<feDropShadow dx='0' dy='4' stdDeviation='4' flood-opacity='0.15'/>
+</filter>
+</defs>
+<rect x='2' y='2' width='44' height='44' rx='12' fill='url(#g-${label})' filter='url(#shadow)'/>
+<rect x='4' y='4' width='40' height='40' rx='10' fill='white' opacity='0.1'/>
+<text x='50%' y='60%' font-size='20' font-family='Segoe UI Emoji, Apple Color Emoji, sans-serif' text-anchor='middle' fill='white' font-weight='400'>${emoji}</text>
+<text x='50%' y='85%' font-size='9' font-family='Inter, Arial, sans-serif' text-anchor='middle' fill='white' font-weight='600'>${label}</text>
+</svg>`;
+  }
+
+  // Reusable ToolCard component with professional styling
+  function ToolCard({ name, desc, cat, emoji }) {
+    const svg = createIconSVG(name, cat, emoji);
+    return (
+      <motion.div 
+        whileHover={{ y: -4, scale: 1.02 }}
+        className="card bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 flex flex-col gap-3 group"
+      >
+        <div className="flex items-start gap-3">
+          <div className="w-12 h-12 flex-shrink-0" dangerouslySetInnerHTML={{ __html: svg }} />
+          <div>
+            <h4 className="text-sm font-bold text-gray-800 group-hover:text-green-700 transition-colors">{name}</h4>
+            <p className="text-xs text-gray-500 mt-1">{desc}</p>
+          </div>
+        </div>
+        <div className="mt-auto flex justify-end items-center gap-2">
+          <span className="text-xs px-2 py-1 rounded-full bg-green-50 text-green-700 font-medium">
+            {cat === 'utils' ? 'Utility' : cat.charAt(0).toUpperCase() + cat.slice(1)}
+          </span>
+          <button className="px-3 py-1.5 rounded-lg font-semibold bg-gradient-to-r from-green-600 to-green-700 text-white hover:shadow-md transition-shadow">
+            Use Tool →
+          </button>
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Professional logo component for header
+  const MaltusLogo = () => (
+    <div className="flex items-center gap-4">
+      <div className="w-14 h-14 rounded-xl grid place-items-center shadow-lg" 
+           style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <path d="M3 20V6l6 8 6-8 6 14" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M12 8l4 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.7"/>
+        </svg>
+      </div>
+      <div>
+        <div className="font-bold text-2xl text-green-800 tracking-tight">Maltus</div>
+        <div className="text-sm text-gray-500 font-medium">Your Intelligent Productivity Toolkit</div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-white to-green-50 text-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Header */}
+        <header className="flex flex-col sm:flex-row items-center justify-between mb-10 gap-6">
+          <MaltusLogo />
+          <nav className="flex items-center gap-6 flex-wrap justify-center">
+            <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#">Home</a>
+            <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#tools">Tools</a>
+            <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#faq">FAQ</a>
+            <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#reviews">Reviews</a>
+            <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#contact">Contact</a>
+            <div className="hidden lg:flex items-center gap-2 text-sm text-gray-500">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <span>madebox77@gmail.com</span>
+            </div>
+          </nav>
+        </header>
+
+        {/* Hero Section */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-16">
+          <div>
+            <motion.h1 
+              initial={{ y: -8, opacity: 0 }} 
+              animate={{ y: 0, opacity: 1 }} 
+              transition={{ duration: 0.5 }}
+              className="text-4xl md:text-5xl font-bold leading-tight"
+            >
+              <span className="bg-gradient-to-r from-green-700 to-green-900 bg-clip-text text-transparent">
+                Premium Tools
+              </span>
+              <br />
+              <span className="text-gray-800">for Modern Productivity</span>
+            </motion.h1>
+            <p className="mt-4 text-lg text-gray-600">
+              Convert, calculate, compress, and simplify your everyday tasks — 
+              all with professional-grade tools that work instantly in your browser.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow">
+                Explore All Tools
+              </button>
+              <button 
+                onClick={() => document.getElementById("search-input").focus()} 
+                className="px-5 py-3 rounded-xl border-2 border-green-200 bg-white text-green-700 font-semibold hover:bg-green-50 transition-colors"
+              >
+                🔍 Search a Tool
+              </button>
+            </div>
+
+            {/* Search Bar */}
+            <div className="mt-8 max-w-2xl">
+              <div className="relative">
+                <div className="flex items-center gap-3 bg-white p-4 rounded-2xl shadow-lg">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-green-600">
+                    <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="2"/>
+                  </svg>
+                  <input 
+                    id="search-input" 
+                    placeholder="Search for any tool (e.g., 'PDF compress', 'image resize', 'calculator')..." 
+                    className="flex-1 outline-none text-base placeholder-gray-400"
+                  />
+                  <button className="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium hover:bg-green-200 transition-colors">
+                    Search
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-4 ml-2">
+                  {['All', 'Image', 'PDF', 'Calculator', 'Text', 'Developer', 'Color', 'Utility'].map((tag) => (
+                    <button 
+                      key={tag}
+                      className="px-3 py-1.5 rounded-full border border-green-200 text-sm hover:bg-green-50 hover:border-green-300 transition-colors"
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 3D Canvas */}
+          <div className="relative h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-green-50 to-blue-50">
+            <canvas ref={threeRef} id="three-canvas" className="w-full h-full" />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <motion.div 
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+                className="w-32 h-32 rounded-full opacity-20"
+                style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}
+              />
+            </div>
+            {/* Floating Info Card */}
+            <motion.div 
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="absolute left-6 bottom-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl max-w-xs"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center" 
+                     style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 13l4 4L19 7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="font-bold text-gray-800">Maltus Pro</div>
+                  <div className="text-xs text-gray-500">Premium features • No signup • 100% Free</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Tools Grids */}
+        <section id="tools" className="space-y-16 mb-20">
+          {Object.entries({
+            '🖼 Image Tools': toolsData.image,
+            '📄 Document Tools': toolsData.doc,
+            '🧮 Calculator Tools': toolsData.calc,
+            '🔤 Text Tools': toolsData.text,
+            '🌐 Developer Tools': toolsData.dev,
+            '🎨 Color Tools': toolsData.color,
+            '🛠 Utility Tools': toolsData.util
+          }).map(([title, tools]) => (
+            <div key={title}>
+              <div className="flex items-center gap-3 mb-6">
+                <h3 className="text-2xl font-bold text-gray-800">{title}</h3>
+                <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                  {tools.length} tools
+                </span>
+              </div>
+              <p className="text-gray-500 mb-6">{title.includes('Image') ? 'High-quality image processing utilities' :
+                 title.includes('Document') ? 'Smart PDF and document handling' :
+                 title.includes('Calculator') ? 'Accurate calculators for any need' :
+                 title.includes('Text') ? 'Powerful text manipulation tools' :
+                 title.includes('Developer') ? 'Essential tools for developers' :
+                 title.includes('Color') ? 'Professional color manipulation' : 'Useful utilities for everyday tasks'}</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {tools.map(([name, desc, cat, emoji]) => (
+                  <ToolCard key={name} name={name} desc={desc} cat={cat} emoji={emoji} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
+
+        {/* Why Choose Maltus */}
+        <section className="mb-20">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Why Choose Maltus?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="p-6 rounded-2xl bg-gradient-to-br from-green-50 to-white border border-green-100 shadow-lg"
+            >
+              <div className="w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center mb-4">
+                <span className="text-2xl">🎯</span>
+              </div>
+              <h4 className="text-xl font-bold text-green-800 mb-3">Professional Tools</h4>
+              <p className="text-gray-600">Every tool is built with professional-grade algorithms for maximum accuracy and quality output.</p>
+            </motion.div>
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-white border border-blue-100 shadow-lg"
+            >
+              <div className="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
+                <span className="text-2xl">⚡</span>
+              </div>
+              <h4 className="text-xl font-bold text-blue-800 mb-3">Lightning Fast</h4>
+              <p className="text-gray-600">Process files and calculations in milliseconds with our optimized browser-based engine.</p>
+            </motion.div>
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-white border border-purple-100 shadow-lg"
+            >
+              <div className="w-14 h-14 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+                <span className="text-2xl">🔒</span>
+              </div>
+              <h4 className="text-xl font-bold text-purple-800 mb-3">Privacy First</h4>
+              <p className="text-gray-600">Your files never leave your browser. We don't store or access any of your data.</p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* FAQs Section */}
+        <section id="faq" className="mb-20">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Frequently Asked Questions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                q: "Is Maltus really free?",
+                a: "Yes! All tools on Maltus are 100% free and will always remain free. We believe in accessible productivity tools for everyone."
+              },
+              {
+                q: "Do the tools work on mobile devices?",
+                a: "Absolutely! Every tool is fully responsive and optimized for mobile, tablet, and desktop use."
+              },
+              {
+                q: "Are my files and data safe?",
+                a: "Completely safe. All processing happens locally in your browser. We never upload, store, or access your files."
+              },
+              {
+                q: "Do I need to create an account?",
+                a: "No account required! Just visit the tool you need and start using it immediately."
+              },
+              {
+                q: "What file sizes are supported?",
+                a: "We support large file processing (up to 500MB for most tools) with efficient browser-based processing."
+              },
+              {
+                q: "Can I suggest a new tool?",
+                a: "Yes! We welcome suggestions. Contact us at madebox77@gmail.com with your tool idea."
+              }
+            ].map((faq, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-3 flex items-center gap-3">
+                  <span className="text-green-600">Q:</span> {faq.q}
+                </h3>
+                <p className="text-gray-600 pl-10">{faq.a}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Customer Reviews */}
+        <section id="reviews" className="mb-20">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">What Our Users Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Sarah Johnson",
+                role: "Graphic Designer",
+                review: "The image tools are incredibly fast and produce professional-quality results. I use them daily for my design work.",
+                rating: 5
+              },
+              {
+                name: "Michael Chen",
+                role: "Software Developer",
+                review: "As a developer, I appreciate the clean API and reliable performance of the developer tools. Saves me hours every week.",
+                rating: 5
+              },
+              {
+                name: "Priya Sharma",
+                role: "Content Creator",
+                review: "The text and document tools are lifesavers for content creation. Simple, fast, and incredibly useful.",
+                rating: 5
+              }
+            ].map((review, idx) => (
+              <motion.div 
+                key={idx}
+                whileHover={{ y: -8 }}
+                className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100"
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-gray-600 italic mb-6">"{review.review}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center text-white font-bold">
+                    {review.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-800">{review.name}</h4>
+                    <p className="text-sm text-gray-500">{review.role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer id="contact" className="bg-gradient-to-r from-green-900 to-green-800 text-white rounded-2xl p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 rounded-xl flex items-center justify-center" 
+                     style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 20V6l6 8 6-8 6 14" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="font-bold text-2xl">Maltus</div>
+                  <div className="text-green-200">Simplifying your digital life.</div>
+                </div>
+              </div>
+              <p className="text-green-100">
+                Professional-grade tools for everyday productivity. 
+                Fast, reliable, and completely free.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-bold text-xl mb-4">Quick Links</h4>
+              <div className="space-y-2">
+                <a href="#tools" className="block text-green-100 hover:text-white transition-colors">All Tools</a>
+                <a href="#faq" className="block text-green-100 hover:text-white transition-colors">FAQ</a>
+                <a href="#reviews" className="block text-green-100 hover:text-white transition-colors">Reviews</a>
+                <a href="#" className="block text-green-100 hover:text-white transition-colors">Blog</a>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-bold text-xl mb-4">Contact & Legal</h4>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                  <span>madebox77@gmail.com</span>
+                </div>
+                <div className="flex items-center gap-2 mt-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                  </svg>
+                  <span>+91 629770490</span>
+                </div>
+                <div className="flex gap-4 mt-4">
+                  <a href="#" className="text-green-100 hover:text-white transition-colors underline">Privacy Policy</a>
+                  <a href="#" className="text-green-100 hover:text-white transition-colors underline">Terms of Use</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-8 pt-8 border-t border-green-700 text-center text-green-200">
+            <p>© {new Date().getFullYear()} Maltus. All rights reserved. Made with ❤️ for the productivity community.</p>
+          </div>
+        </footer>
+      </div>
+    </div>
+  );
+}
