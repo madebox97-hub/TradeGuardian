@@ -1,322 +1,1055 @@
-// MaltusHome.jsx — Fully Fixed & Completed Version (React + Tailwind + Framer Motion)
-// No missing parts, no syntax errors, ready for use
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maltus - Your Daily Tools, All in One Place</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #10B981;
+            --dark-green: #059669;
+            --light-green: #D1FAE5;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --bg-light: #F9FAFB;
+            --bg-white: #FFFFFF;
+            --accent-blue: #3B82F6;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
 
-import React from "react";
-import { motion } from "framer-motion";
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-export default function MaltusHome() {
-  // Tools data
-  const toolsData = {
-    image: [
-      ["Image Converter", "Convert between JPG, PNG, WEBP, and more.", "image", "🔄"],
-      ["Image Compressor", "Reduce file size while keeping quality.", "image", "📊"],
-      ["Image Resizer", "Resize images for web and thumbnails.", "image", "📐"],
-      ["Image Cropper", "Quick crop to common aspect ratios.", "image", "✂️"],
-      ["Image to Text (OCR)", "Extract text from images instantly.", "image", "🔤"],
-      ["Image Rotator/Flipper", "Rotate or flip images with one click.", "image", "↪️"],
-      ["Image Background Remover", "Remove backgrounds automatically.", "image", "🧹"],
-      ["Image Color Changer", "Replace or tweak image colors.", "image", "🎨"],
-      ["Image Enhancer (AI)", "Improve clarity and reduce noise.", "image", "🤖"]
-    ],
-    doc: [
-      ["PDF to Word / Word to PDF", "Convert documents quickly.", "doc", "📄"],
-      ["PDF Compressor", "Make PDFs smaller for sharing.", "doc", "📦"],
-      ["PDF Merger & Splitter", "Merge or split PDF pages.", "doc", "🧩"],
-      ["Document Converter", "Convert DOCX, ODT, TXT and more.", "doc", "📑"],
-      ["PDF Lock/Unlock", "Add or remove passwords from PDFs.", "doc", "🔐"],
-      ["eSign PDF", "Sign PDFs securely online.", "doc", "✍️"],
-      ["PDF Page Reorder", "Reorder pages visually.", "doc", "📑"],
-      ["Text to PDF Generator", "Create PDFs from plain text.", "doc", "📝"],
-      ["Excel to PDF Converter", "Export spreadsheets to PDF.", "doc", "📊"]
-    ],
-    calc: [
-      ["Scientific Calculator", "Full-featured scientific calculator.", "calc", "🧮"],
-      ["Age Calculator", "Calculate exact age.", "calc", "🎂"],
-      ["BMI Calculator", "Body mass index calculator.", "calc", "⚖️"],
-      ["Loan EMI Calculator", "Estimate loan payments.", "calc", "💰"],
-      ["GST Calculator", "GST inclusive/exclusive pricing.", "calc", "🏪"],
-      ["Currency Converter", "Live currency conversions.", "calc", "💱"],
-      ["Date Calculator", "Days between dates.", "calc", "📅"],
-      ["Percentage Calculator", "Quick percent calculations.", "calc", "%"],
-      ["Discount Calculator", "Calculate sale prices instantly.", "calc", "🏷️"]
-    ],
-    text: [
-      ["Text Case Converter", "Uppercase, lowercase, title case.", "text", "🔠"],
-      ["Word & Character Counter", "Counts words and characters.", "text", "📊"],
-      ["Remove Duplicate Lines", "Clean up repeated lines.", "text", "🧹"],
-      ["Text Sorter", "Sort text alphabetically.", "text", "🔢"],
-      ["Text Reverser", "Reverse text easily.", "text", "↩️"],
-      ["Text Encryptor/Decryptor", "Simple encryption.", "text", "🔒"],
-      ["Lorem Ipsum Generator", "Generate placeholder text.", "text", "📝"],
-      ["Paragraph Formatter", "Smart text formatting.", "text", "📄"],
-      ["Hashtag Generator", "Generate hashtags.", "text", "#️⃣"]
-    ],
-    dev: [
-      ["HTML/CSS/JS Minifier", "Minify front-end assets.", "dev", "⚡"],
-      ["JSON Formatter", "Pretty JSON output.", "dev", "{}"],
-      ["Base64 Encoder", "Encode text.", "dev", "🔢"],
-      ["URL Encoder", "Encode URLs safely.", "dev", "🔗"],
-      ["Color Picker", "Pick & convert colors.", "dev", "🎨"],
-      ["Regex Tester", "Test regular expressions.", "dev", ".*"],
-      ["JWT Decoder", "Decode JWT tokens.", "dev", "🔑"],
-      ["DNS Lookup", "Query DNS records.", "dev", "🌐"],
-      ["Open Graph Generator", "Social media OG tags.", "dev", "📱"]
-    ],
-    color: [
-      ["Color Picker from Image", "Pick accurate colors.", "color", "🎯"],
-      ["HEX to RGB", "Convert color formats.", "color", "🔄"],
-      ["Gradient Generator", "Create CSS gradients.", "color", "🌈"],
-      ["Contrast Checker", "Check WCAG contrast.", "color", "👁️"],
-      ["Palette Generator", "Auto-generate palettes.", "color", "🎨"],
-      ["Color Blindness Simulator", "Preview visibility.", "color", "👓"],
-      ["Color Temperature", "Kelvin ↔ RGB.", "color", "🌡️"],
-      ["Shadow Generator", "CSS shadow presets.", "color", "🌑"],
-      ["Glassmorphism Generator", "Frosted UI styles.", "color", "🥂"]
-    ],
-    util: [
-      ["QR Code Generator", "Generate or scan QR.", "utils", "📱"],
-      ["Barcode Generator", "Create barcodes.", "utils", "📊"],
-      ["UUID Generator", "Secure UUIDs.", "utils", "🆔"],
-      ["Unit Converter", "Convert units.", "utils", "📏"],
-      ["Time Zone Converter", "Convert time zones.", "utils", "🌎"],
-      ["Password Generator", "Generate super passwords.", "utils", "🎲"],
-      ["Clipboard Manager", "Manage text.", "utils", "📋"],
-      ["Stopwatch & Timer", "Track time.", "utils", "⏱️"],
-      ["Markdown to HTML", "Render Markdown.", "utils", "📝"]
-    ]
-  };
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+        }
 
-  // Icon
-  function ToolIcon({ emoji, label }) {
-    const colors = [
-      "from-blue-500 to-purple-500",
-      "from-green-500 to-teal-500",
-      "from-orange-500 to-red-500",
-      "from-purple-500 to-pink-500",
-      "from-indigo-500 to-blue-500",
-      "from-pink-500 to-rose-500",
-      "from-teal-500 to-green-500"
-    ];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
 
-    return (
-      <div className={`w-12 h-12 rounded-xl flex flex-col items-center justify-center bg-gradient-to-br ${randomColor} shadow-lg`}>
-        <span className="text-lg">{emoji}</span>
-        <span className="text-[8px] text-white font-bold mt-0.5">{label}</span>
-      </div>
-    );
-  }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-  // Card Component
-  function ToolCard({ name, desc, cat, emoji }) {
-    const label = name.split(" ").slice(0, 2).map(w => w[0]?.toUpperCase() || "").join("") || "TO";
+        /* Header Styles */
+        header {
+            background-color: var(--bg-white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    return (
-      <motion.div whileHover={{ y: -4, scale: 1.02 }} className="card bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 flex flex-col gap-3 group">
-        <div className="flex items-start gap-3">
-          <ToolIcon emoji={emoji} label={label} />
-          <div>
-            <h4 className="text-sm font-bold text-gray-800 group-hover:text-green-700 transition-colors">{name}</h4>
-            <p className="text-xs text-gray-500 mt-1">{desc}</p>
-          </div>
-        </div>
-        <div className="mt-auto flex justify-end items-center gap-2">
-          <span className="text-xs px-2 py-1 rounded-full bg-green-50 text-green-700 font-medium">
-            {cat === 'utils' ? 'Utility' : cat.charAt(0).toUpperCase() + cat.slice(1)}
-          </span>
-          <button className="px-3 py-1.5 rounded-lg font-semibold bg-gradient-to-r from-green-600 to-green-700 text-white hover:shadow-md transition-shadow">
-            Use Tool →
-          </button>
-        </div>
-      </motion.div>
-    );
-  }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
 
-  const MaltusLogo = () => (
-    <div className="flex items-center gap-4">
-      <div className="w-14 h-14 rounded-xl grid place-items-center shadow-lg" style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}>
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-          <path d="M3 20V6l6 8 6-8 6 14" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M12 8l4 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.7"/>
-        </svg>
-      </div>
-      <div>
-        <div className="font-bold text-2xl text-green-800 tracking-tight">Maltus</div>
-        <div className="text-sm text-gray-500 font-medium">Your Intelligent Productivity Toolkit</div>
-      </div>
-    </div>
-  );
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
 
-  const GeometricShapes = () => (
-    <div className="relative h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-green-50 to-blue-50">
-      {/* Animated shapes */}
-      <div className="absolute inset-0">
-        <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute top-1/4 left-1/4 w-32 h-32 border-4 border-green-300/30 rounded-lg" style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }} />
-        <motion.div animate={{ rotate: -360 }} transition={{ duration: 25, repeat: Infinity, ease: "linear" }} className="absolute bottom-1/4 right-1/4 w-24 h-24 border-4 border-blue-300/30 rounded-lg" />
-        <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 3, repeat: Infinity }} className="absolute top-1/3 right-1/3 w-20 h-20 border-4 border-teal-300/40 rounded-lg" style={{ clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)" }} />
+        .logo i {
+            margin-right: 8px;
+            font-size: 24px;
+        }
 
-        {[...Array(15)].map((_, i) => (
-          <motion.div key={i} className="absolute w-2 h-2 bg-green-400/50 rounded-full" style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }} animate={{ y: [0, -20, 0], opacity: [0.3, 0.7, 0.3] }} transition={{ duration: 2 + Math.random() * 3, repeat: Infinity, delay: i * 0.2 }} />
-        ))}
-      </div>
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
 
-      <motion.div initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.5 }} className="absolute left-6 bottom-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl max-w-xs">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg,#12a454,#0e8a43)" }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M5 13l4 4L19 7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <div>
-            <div className="font-bold text-gray-800">Maltus Pro</div>
-            <div className="text-xs text-gray-500">Premium features • No signup • 100% Free</div>
-          </div>
-        </div>
-      </motion.div>
+        .nav-links li {
+            margin-left: 32px;
+        }
 
-      <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity }} className="absolute inset-0 rounded-2xl border-2 border-green-200/20 pointer-events-none" />
-    </div>
-  );
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+        }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-green-50 text-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
 
-        <header className="flex flex-col sm:flex-row items-center justify-between mb-10 gap-6">
-          <MaltusLogo />
-          <nav className="flex items-center gap-6 flex-wrap justify-center">
-            <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#">Home</a>
-            <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#tools">Tools</a>
-            <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#faq">FAQ</a>
-            <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#reviews">Reviews</a>
-            <a className="font-semibold text-gray-700 hover:text-green-700 transition-colors" href="#contact">Contact</a>
-            <div className="hidden lg:flex items-center gap-2 text-sm text-gray-500">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>
-              <span>madebox77@gmail.com</span>
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .contact-info a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .contact-info a:hover {
+            color: var(--primary-green);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 100px;
+            background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--light-green);
+            top: -150px;
+            right: -150px;
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--light-green);
+            bottom: -100px;
+            left: -100px;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            max-width: 800px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 700px;
+        }
+
+        .cta-button {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .tool-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 60px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tool-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .tool-icon:hover {
+            transform: perspective(1000px) rotateY(15deg) translateY(-10px);
+        }
+
+        .tool-icon i {
+            font-size: 32px;
+            color: var(--primary-green);
+        }
+
+        /* Search Bar */
+        .search-section {
+            padding: 30px 0;
+            background-color: var(--bg-white);
+            position: relative;
+            z-index: 2;
+            margin-top: -40px;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 20px 60px 20px 30px;
+            font-size: 18px;
+            border: 2px solid #E5E7EB;
+            border-radius: var(--radius);
+            outline: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .search-bar:focus {
+            border-color: var(--primary-green);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 22px;
+            color: var(--text-light);
+        }
+
+        /* Tool Sections */
+        .section-container {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title i {
+            font-size: 28px;
+            margin-right: 15px;
+            color: var(--primary-green);
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .tool-card {
+            background-color: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid #F3F4F6;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg);
+        }
+
+        .tool-card:hover {
+            transform: perspective(1000px) rotateX(5deg) translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--light-green);
+        }
+
+        .tool-icon-small {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tool-icon-small i {
+            font-size: 24px;
+            color: var(--primary-green);
+        }
+
+        .tool-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .tool-card p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .tool-button {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .tool-button:hover {
+            background-color: #2563EB;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111827;
+            color: white;
+            padding: 70px 0 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo i {
+            margin-right: 8px;
+            color: var(--primary-green);
+        }
+
+        .footer-tagline {
+            color: #9CA3AF;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .footer-heading {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #9CA3AF;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .contact-details p {
+            margin-bottom: 15px;
+            color: #9CA3AF;
+        }
+
+        .contact-details i {
+            margin-right: 10px;
+            color: var(--primary-green);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9CA3AF;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .contact-info {
+                display: none;
+            }
+            
+            .mobile-contact {
+                display: block;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .tool-icons {
+                gap: 15px;
+            }
+            
+            .tool-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .tool-icon i {
+                font-size: 24px;
+            }
+            
+            .section-title h2 {
+                font-size: 1.7rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 60px 0 80px;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 3D Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-10px) rotateY(5deg); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Search Results */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 10;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #F3F4F6;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-result-item:hover {
+            background-color: var(--bg-light);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .highlight {
+            background-color: rgba(16, 185, 129, 0.1);
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        /* Age Indicator */
+        .age-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-green);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-tools"></i> Maltus
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#tools">Tools</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+            <div class="contact-info">
+                <a href="mailto:madebox97@gmail.com">
+                    <i class="fas fa-envelope"></i> madebox97@gmail.com
+                </a>
+                <a href="tel:6297370490">
+                    <i class="fas fa-phone"></i> 6297370490
+                </a>
             </div>
-          </nav>
-        </header>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
 
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-16">
-          <div>
-            <motion.h1 initial={{ y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5 }} className="text-4xl md:text-5xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-green-700 to-green-900 bg-clip-text text-transparent">Premium Tools</span><br />
-              <span className="text-gray-800">for Modern Productivity</span>
-            </motion.h1>
-
-            <p className="mt-4 text-lg text-gray-600">Convert, calculate, compress, and simplify your everyday tasks — all with professional tools.</p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow">Explore All Tools</button>
-
-              <button onClick={() => document.getElementById("search-input")?.focus()} className="px-5 py-3 rounded-xl border-2 border-green-200 bg-white text-green-700 font-semibold hover:bg-green-50 transition-colors">🔍 Search a Tool</button>
-            </div>
-
-            <div className="mt-8 max-w-2xl">
-              <div className="relative">
-                <div className="flex items-center gap-3 bg-white p-4 rounded-2xl shadow-lg">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-green-600"><path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="2"/></svg>
-                  <input id="search-input" placeholder="Search for any tool..." className="flex-1 outline-none text-base placeholder-gray-400" />
-                  <button className="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium hover:bg-green-200 transition-colors">Search</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Your Daily Tools, All in One Place</h1>
+            <p>Convert, calculate, compress, and simplify your everyday tasks — fast and free.</p>
+            <button class="cta-button">Explore Tools</button>
+            
+            <div class="tool-icons">
+                <div class="tool-icon floating" style="animation-delay: 0s;">
+                    <i class="fas fa-image"></i>
                 </div>
-
-                <div className="flex flex-wrap gap-2 mt-4 ml-2">
-                  {["All", "Image", "PDF", "Calculator", "Text", "Developer", "Color", "Utility"].map(tag => (
-                    <button key={tag} className="px-3 py-1.5 rounded-full border border-green-200 text-sm hover:bg-green-50 hover:border-green-300 transition-colors">{tag}</button>
-                  ))}
+                <div class="tool-icon floating" style="animation-delay: 0.5s;">
+                    <i class="fas fa-file-alt"></i>
                 </div>
-              </div>
+                <div class="tool-icon floating" style="animation-delay: 1s;">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="tool-icon floating" style="animation-delay: 1.5s;">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="tool-icon floating" style="animation-delay: 2s;">
+                    <i class="fas fa-video"></i>
+                </div>
             </div>
-          </div>
+        </div>
+    </section>
 
-          <GeometricShapes />
-        </section>
-
-        <section id="tools" className="space-y-16 mb-20">
-          {Object.entries({
-            "🖼 Image Tools": toolsData.image,
-            "📄 Document Tools": toolsData.doc,
-            "🧮 Calculator Tools": toolsData.calc,
-            "🔤 Text Tools": toolsData.text,
-            "🌐 Developer Tools": toolsData.dev,
-            "🎨 Color Tools": toolsData.color,
-            "🛠 Utility Tools": toolsData.util
-          }).map(([title, tools]) => (
-            <div key={title}>
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-2xl font-bold text-gray-800">{title}</h3>
-                <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">{tools.length} tools</span>
-              </div>
-
-              <p className="text-gray-500 mb-6">{
-                title.includes("Image") ? "High-quality image processing tools" :
-                title.includes("Document") ? "Smart PDF and document tools" :
-                title.includes("Calculator") ? "Accurate calculators" :
-                title.includes("Text") ? "Powerful text processing" :
-                title.includes("Developer") ? "Developer essentials" :
-                title.includes("Color") ? "Pro color tools" :
-                "Everyday utility tools"
-              }</p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {tools.map(([name, desc, cat, emoji]) => (
-                  <ToolCard key={name} name={name} desc={desc} cat={cat} emoji={emoji} />
-                ))}
-              </div>
+    <!-- Search Bar -->
+    <section class="search-section">
+        <div class="container search-container">
+            <input type="text" class="search-bar" id="searchBar" placeholder="Search a tool...">
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
             </div>
-          ))}
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </section>
+
+    <!-- Tool Sections -->
+    <main class="container section-container" id="tools">
+        <!-- Image Tools -->
+        <section class="tool-section">
+            <div class="section-title">
+                <i class="fas fa-image"></i>
+                <h2>Image Tools</h2>
+            </div>
+            <p class="section-subtitle">Edit, convert, compress and transform your images with our powerful image tools</p>
+            <div class="tools-grid">
+                <!-- Tool cards will be generated by JavaScript -->
+            </div>
         </section>
 
-        <section className="mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Why Choose Maltus?</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl bg-gradient-to-br from-green-50 to-white border border-green-100 shadow-lg">
-              <div className="w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center mb-4"><span className="text-2xl">🎯</span></div>
-              <h4 className="text-xl font-bold text-green-800 mb-3">Professional Tools</h4>
-              <p className="text-gray-600">Every tool is built with professional-grade algorithms.</p>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-white border border-blue-100 shadow-lg">
-              <div className="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center mb-4"><span className="text-2xl">⚡</span></div>
-              <h4 className="text-xl font-bold text-blue-800 mb-3">Lightning Fast</h4>
-              <p className="text-gray-600">Optimized tools for maximum speed.</p>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-white border border-purple-100 shadow-lg">
-              <div className="w-14 h-14 rounded-xl bg-purple-100 flex items-center justify-center mb-4"><span className="text-2xl">🔒</span></div>
-              <h4 className="text-xl font-bold text-purple-800 mb-3">Privacy First</h4>
-              <p className="text-gray-600">Your files never leave your browser.</p>
-            </motion.div>
-          </div>
+        <!-- Document Tools -->
+        <section class="tool-section">
+            <div class="section-title">
+                <i class="fas fa-file-alt"></i>
+                <h2>Document Tools</h2>
+            </div>
+            <p class="section-subtitle">Manage, convert and edit your PDFs and documents with ease</p>
+            <div class="tools-grid">
+                <!-- Tool cards will be generated by JavaScript -->
+            </div>
         </section>
 
-        <section id="faq" className="mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Frequently Asked Questions</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[{
-              q: "Is Maltus really free?",
-              a: "Yes, all tools are 100% free and always will be."
-            },{
-              q: "Do the tools work on mobile devices?",
-              a: "Yes, all tools are fully responsive and mobile friendly."
-            },{
-              q: "Is my data stored anywhere?",
-              a: "No. Everything processes inside your browser only."
-            },{
-              q: "Do I need to create an account?",
-              a: "No signup or login is required."
-            }].map((f, i) => (
-              <div key={i} className="p-5 rounded-xl bg-white shadow-sm border border-gray-100">
-                <h4 className="font-bold text-gray-800 mb-2">{f.q}</h4>
-                <p className="text-gray-600 text-sm">{f.a}</p>
-              </div>
-            ))}
-          </div>
+        <!-- Calculator Tools -->
+        <section class="tool-section">
+            <div class="section-title">
+                <i class="fas fa-calculator"></i>
+                <h2>Calculator Tools</h2>
+            </div>
+            <p class="section-subtitle">Calculate everything from simple math to complex financial equations</p>
+            <div class="tools-grid">
+                <!-- Tool cards will be generated by JavaScript -->
+            </div>
         </section>
 
-      </div>
+        <!-- Text Tools -->
+        <section class="tool-section">
+            <div class="section-title">
+                <i class="fas fa-font"></i>
+                <h2>Text Tools</h2>
+            </div>
+            <p class="section-subtitle">Transform, analyze and manipulate text with our text processing tools</p>
+            <div class="tools-grid">
+                <!-- Tool cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Web/Developer Tools -->
+        <section class="tool-section">
+            <div class="section-title">
+                <i class="fas fa-code"></i>
+                <h2>Web/Developer Tools</h2>
+            </div>
+            <p class="section-subtitle">Essential tools for developers to format, validate and optimize code</p>
+            <div class="tools-grid">
+                <!-- Tool cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Color Tools -->
+        <section class="tool-section">
+            <div class="section-title">
+                <i class="fas fa-palette"></i>
+                <h2>Color Tools</h2>
+            </div>
+            <p class="section-subtitle">Create, convert and analyze color palettes for your projects</p>
+            <div class="tools-grid">
+                <!-- Tool cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- SEO & Marketing Tools -->
+        <section class="tool-section">
+            <div class="section-title">
+                <i class="fas fa-chart-line"></i>
+                <h2>SEO & Marketing Tools</h2>
+            </div>
+            <p class="section-subtitle">Optimize your content and analyze your SEO performance</p>
+            <div class="tools-grid">
+                <!-- Tool cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Utility Tools -->
+        <section class="tool-section">
+            <div class="section-title">
+                <i class="fas fa-cogs"></i>
+                <h2>Utility Tools</h2>
+            </div>
+            <p class="section-subtitle">Handy utilities for everyday tasks and problem-solving</p>
+            <div class="tools-grid">
+                <!-- Tool cards will be generated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-tools"></i> Maltus
+                    </div>
+                    <p class="footer-tagline">Simplifying your digital life. A comprehensive collection of free online tools for everyday tasks.</p>
+                    <div class="mobile-contact">
+                        <p><i class="fas fa-envelope"></i> madebox97@gmail.com</p>
+                        <p><i class="fas fa-phone"></i> 6297370490</p>
+                    </div>
+                </div>
+                
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+                
+                <div class="contact-details">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> madebox97@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> 6297370490</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Clutter-Bankura Scholdanga</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Maltus. All rights reserved. | Created with ❤️ for simplifying digital tasks</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Age Indicator -->
+    <div class="age-indicator">
+        <i class="fas fa-user"></i> Age: 15 | Tools Added: 15
     </div>
-  );
-}
+
+    <script>
+        // Tool data structure
+        const toolData = {
+            "image": {
+                icon: "fas fa-image",
+                tools: [
+                    { name: "Image Converter", desc: "Convert images between JPG, PNG, WebP, and more" },
+                    { name: "Image Compressor", desc: "Reduce image file size without losing quality" },
+                    { name: "Image Resizer", desc: "Resize images to specific dimensions" },
+                    { name: "Image Cropper", desc: "Crop images to remove unwanted areas" },
+                    { name: "Image to Text (OCR)", desc: "Extract text from images using OCR technology" },
+                    { name: "Image Rotator/Flipper", desc: "Rotate and flip images horizontally or vertically" }
+                ]
+            },
+            "document": {
+                icon: "fas fa-file-alt",
+                tools: [
+                    { name: "PDF to Word / Word to PDF", desc: "Convert between PDF and Word documents" },
+                    { name: "PDF Compressor", desc: "Reduce PDF file size while preserving quality" },
+                    { name: "PDF Merger & Splitter", desc: "Combine multiple PDFs or split large ones" },
+                    { name: "Document Converter", desc: "Convert between various document formats" },
+                    { name: "PDF Lock/Unlock", desc: "Add or remove password protection from PDFs" },
+                    { name: "eSign PDF", desc: "Add electronic signatures to PDF documents" }
+                ]
+            },
+            "calculator": {
+                icon: "fas fa-calculator",
+                tools: [
+                    { name: "Scientific Calculator", desc: "Advanced calculator for complex calculations" },
+                    { name: "Age Calculator", desc: "Calculate age from birth date to current date" },
+                    { name: "BMI Calculator", desc: "Calculate Body Mass Index based on height & weight" },
+                    { name: "Loan EMI Calculator", desc: "Calculate Equated Monthly Installments for loans" },
+                    { name: "GST Calculator", desc: "Calculate Goods and Services Tax amounts" },
+                    { name: "Currency Converter", desc: "Convert between different world currencies" }
+                ]
+            },
+            "text": {
+                icon: "fas fa-font",
+                tools: [
+                    { name: "Text Case Converter", desc: "Convert text between uppercase, lowercase, title case" },
+                    { name: "Word & Character Counter", desc: "Count words, characters, sentences in text" },
+                    { name: "Remove Duplicate Lines", desc: "Remove duplicate lines from text" },
+                    { name: "Text Sorter", desc: "Sort lines of text alphabetically or numerically" },
+                    { name: "Text Reverser", desc: "Reverse text character order or line order" },
+                    { name: "Text Encryptor/Decryptor", desc: "Encrypt and decrypt text with secure algorithms" }
+                ]
+            },
+            "web": {
+                icon: "fas fa-code",
+                tools: [
+                    { name: "HTML/CSS/JS Minifier", desc: "Minify HTML, CSS, and JavaScript code" },
+                    { name: "JSON Formatter & Validator", desc: "Format and validate JSON data" },
+                    { name: "Base64 Encoder/Decoder", desc: "Encode and decode Base64 strings" },
+                    { name: "URL Encoder/Decoder", desc: "Encode and decode URL strings" },
+                    { name: "Color Picker & Converter", desc: "Pick colors and convert between formats" },
+                    { name: "Regex Tester", desc: "Test and debug regular expressions" }
+                ]
+            },
+            "color": {
+                icon: "fas fa-palette",
+                tools: [
+                    { name: "Color Picker from Image", desc: "Extract colors from uploaded images" },
+                    { name: "HEX to RGB Converter", desc: "Convert HEX color codes to RGB values" },
+                    { name: "Gradient Generator", desc: "Create beautiful CSS gradients" },
+                    { name: "Contrast Checker", desc: "Check color contrast for accessibility" },
+                    { name: "Palette Generator", desc: "Generate harmonious color palettes" },
+                    { name: "Color Blindness Simulator", desc: "Simulate how colors appear to colorblind users" }
+                ]
+            },
+            "seo": {
+                icon: "fas fa-chart-line",
+                tools: [
+                    { name: "Keyword Density Checker", desc: "Analyze keyword density in text" },
+                    { name: "Meta Tag Analyzer", desc: "Check and analyze meta tags for SEO" },
+                    { name: "Word Counter", desc: "Count words and characters for content optimization" }
+                ]
+            },
+            "utility": {
+                icon: "fas fa-cogs",
+                tools: [
+                    { name: "QR Code Generator & Scanner", desc: "Create and scan QR codes" },
+                    { name: "Barcode Generator", desc: "Generate barcodes in various formats" },
+                    { name: "UUID Generator", desc: "Generate unique identifiers (UUIDs)" },
+                    { name: "Unit Converter", desc: "Convert between different units of measurement" },
+                    { name: "Time Zone Converter", desc: "Convert time between different time zones" },
+                    { name: "Random Number/Password Generator", desc: "Generate random numbers and secure passwords" }
+                ]
+            }
+        };
+
+        // Generate tool cards for each section
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.tool-section');
+            
+            sections.forEach(section => {
+                const grid = section.querySelector('.tools-grid');
+                const sectionTitle = section.querySelector('h2').textContent.toLowerCase();
+                
+                let categoryKey = "";
+                if (sectionTitle.includes("image")) categoryKey = "image";
+                else if (sectionTitle.includes("document")) categoryKey = "document";
+                else if (sectionTitle.includes("calculator")) categoryKey = "calculator";
+                else if (sectionTitle.includes("text")) categoryKey = "text";
+                else if (sectionTitle.includes("web") || sectionTitle.includes("developer")) categoryKey = "web";
+                else if (sectionTitle.includes("color")) categoryKey = "color";
+                else if (sectionTitle.includes("seo") || sectionTitle.includes("marketing")) categoryKey = "seo";
+                else if (sectionTitle.includes("utility")) categoryKey = "utility";
+                
+                if (toolData[categoryKey]) {
+                    toolData[categoryKey].tools.forEach(tool => {
+                        const toolCard = document.createElement('div');
+                        toolCard.className = 'tool-card';
+                        toolCard.innerHTML = `
+                            <div class="tool-icon-small">
+                                <i class="${toolData[categoryKey].icon}"></i>
+                            </div>
+                            <h3>${tool.name}</h3>
+                            <p>${tool.desc}</p>
+                            <button class="tool-button">Use Tool</button>
+                        `;
+                        grid.appendChild(toolCard);
+                    });
+                }
+            });
+
+            // Search functionality
+            const searchBar = document.getElementById('searchBar');
+            const searchResults = document.getElementById('searchResults');
+            
+            // Collect all tools for search
+            let allTools = [];
+            Object.keys(toolData).forEach(category => {
+                toolData[category].tools.forEach(tool => {
+                    allTools.push({
+                        name: tool.name,
+                        desc: tool.desc,
+                        category: category
+                    });
+                });
+            });
+            
+            searchBar.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                searchResults.innerHTML = '';
+                
+                if (searchTerm.length === 0) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                const filteredTools = allTools.filter(tool => 
+                    tool.name.toLowerCase().includes(searchTerm) || 
+                    tool.desc.toLowerCase().includes(searchTerm) ||
+                    tool.category.toLowerCase().includes(searchTerm)
+                );
+                
+                if (filteredTools.length > 0) {
+                    filteredTools.forEach(tool => {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'search-result-item';
+                        
+                        // Highlight matching text
+                        const highlightedName = tool.name.replace(
+                            new RegExp(searchTerm, 'gi'), 
+                            match => `<span class="highlight">${match}</span>`
+                        );
+                        
+                        resultItem.innerHTML = `
+                            <strong>${highlightedName}</strong>
+                            <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">${tool.desc}</p>
+                        `;
+                        
+                        resultItem.addEventListener('click', function() {
+                            // Scroll to the appropriate section
+                            const categorySection = document.querySelector(`[data-category="${tool.category}"]`);
+                            if (categorySection) {
+                                categorySection.scrollIntoView({ behavior: 'smooth' });
+                            }
+                            searchBar.value = '';
+                            searchResults.style.display = 'none';
+                        });
+                        
+                        searchResults.appendChild(resultItem);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'search-result-item';
+                    noResults.textContent = 'No tools found matching your search';
+                    searchResults.appendChild(noResults);
+                    searchResults.style.display = 'block';
+                }
+            });
+            
+            // Close search results when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!searchBar.contains(event.target) && !searchResults.contains(event.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.querySelector('.nav-links');
+            const contactInfo = document.querySelector('.contact-info');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                if (navLinks.style.display === 'flex') {
+                    navLinks.style.display = 'none';
+                    contactInfo.style.display = 'none';
+                } else {
+                    navLinks.style.display = 'flex';
+                    navLinks.style.flexDirection = 'column';
+                    navLinks.style.position = 'absolute';
+                    navLinks.style.top = '100%';
+                    navLinks.style.left = '0';
+                    navLinks.style.right = '0';
+                    navLinks.style.backgroundColor = 'white';
+                    navLinks.style.padding = '20px';
+                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+                    
+                    contactInfo.style.display = 'flex';
+                    contactInfo.style.flexDirection = 'column';
+                    contactInfo.style.position = 'absolute';
+                    contactInfo.style.top = 'calc(100% + 200px)';
+                    contactInfo.style.left = '0';
+                    contactInfo.style.right = '0';
+                    contactInfo.style.backgroundColor = 'white';
+                    contactInfo.style.padding = '20px';
+                    contactInfo.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+                    
+                    // Update nav links positioning
+                    Array.from(navLinks.children).forEach((li, index) => {
+                        li.style.margin = '10px 0';
+                    });
+                }
+            });
+            
+            // Add data-category attributes to sections for search
+            sections.forEach(section => {
+                const sectionTitle = section.querySelector('h2').textContent.toLowerCase();
+                let categoryKey = "";
+                if (sectionTitle.includes("image")) categoryKey = "image";
+                else if (sectionTitle.includes("document")) categoryKey = "document";
+                else if (sectionTitle.includes("calculator")) categoryKey = "calculator";
+                else if (sectionTitle.includes("text")) categoryKey = "text";
+                else if (sectionTitle.includes("web") || sectionTitle.includes("developer")) categoryKey = "web";
+                else if (sectionTitle.includes("color")) categoryKey = "color";
+                else if (sectionTitle.includes("seo") || sectionTitle.includes("marketing")) categoryKey = "seo";
+                else if (sectionTitle.includes("utility")) categoryKey = "utility";
+                
+                if (categoryKey) {
+                    section.setAttribute('data-category', categoryKey);
+                }
+            });
+            
+            // CTA button scroll to tools
+            document.querySelector('.cta-button').addEventListener('click', function() {
+                document.getElementById('tools').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Tool buttons functionality
+            document.addEventListener('click', function(event) {
+                if (event.target.classList.contains('tool-button')) {
+                    alert('This tool would open in a real implementation. For this demo, navigation is simulated.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
